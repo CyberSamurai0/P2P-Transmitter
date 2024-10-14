@@ -1,7 +1,7 @@
 # Point to Point Infrared Data Transmission built using C
 ## Credits
 #### John A. Baker
-add description
+Undergraduate at Purdue University double-majoring in Cybersecurity and Network Engineering Technology
 #### William P. Buinicki
 Undergraduate at Purdue University double-majoring in Cybersecurity and Network Engineering Technology, minoring in Forensics
 #### Brandon A. D'Souza
