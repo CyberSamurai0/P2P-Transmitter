@@ -7,7 +7,7 @@ add description
 #### Brandon A. D'Souza
 add description
 #### Pierce P. McGuckin
-add description
+Undergraduate at Purdue University double-majoring in Cybersecurity and Network Engineering Technology, minoring in Organizational Leadership
 #### Colin A. Saumure
 Undergraduate at Purdue University double-majoring in Cybersecurity and Network Engineering Technology, minoring in Electrical Engineering Technology
 
