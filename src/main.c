@@ -4,7 +4,11 @@
  */
 
 #include "networking.h"
+#include "uart.h"
 
 int main() {
     sayHelloWorld();
+	char x[33];
+	getMessage(x);
+	sendMessage(x);
 }

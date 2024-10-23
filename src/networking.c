@@ -4,5 +4,11 @@
 #include "networking.h"
 
 void sayHelloWorld() {
-    printf("Hello World");
+    printf("Hello World\n");
+}
+
+void getMessage(char readToString[33]) {
+	printf("Please enter a message to transmit: ");
+	scanf("%32s", readToString);
+	printf("\n");
 }
