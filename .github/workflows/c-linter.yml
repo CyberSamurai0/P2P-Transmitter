@@ -10,6 +10,9 @@ on:
 jobs:
   c-linter:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - uses: cpp-linter/cpp-linter-action@v2
