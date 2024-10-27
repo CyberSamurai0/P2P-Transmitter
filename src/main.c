@@ -5,10 +5,14 @@
 
 #include "networking.h"
 #include "uart.h"
+#include "bytes.h"
 
 int main() {
-    sayHelloWorld();
+	sayHelloWorld();
 	char x[33];
 	getMessage(x);
-	sendMessage(x);
+	Packet p = toPacket(x);
+	printPacket(&p);
+
+	return 0;
 }
