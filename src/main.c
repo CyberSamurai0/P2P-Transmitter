@@ -8,19 +8,18 @@
 #include "bytes.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <wiringPi.h>
 
 int main() {
 	sayHelloWorld();
 
-	wiringPiSetupGpio();
-	pinMode(8, OUTPUT);
+//	wiringPiSetupGpio();
+//	pinMode(8, OUTPUT);
 
 	int state = 0;
 	while (state != -1) {
 		scanf("%d", &state);
 		if (state == 1) {
-			pullUpDnControl(8, PUD_UP);
+//			pullUpDnControl(8, PUD_UP);
 		}
 	}
 
