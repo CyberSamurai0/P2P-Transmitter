@@ -8,20 +8,20 @@
 #include "bytes.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "pico/stdlib.h"
 
 int main() {
+	stdio_init_all();
+
 	sayHelloWorld();
 
-//	wiringPiSetupGpio();
-//	pinMode(8, OUTPUT);
-
-	int state = 0;
-	while (state != -1) {
-		scanf("%d", &state);
-		if (state == 1) {
+//	int state = 0;
+//	while (state != -1) {
+//		scanf("%d", &state);
+//		if (state == 1) {
 //			pullUpDnControl(8, PUD_UP);
-		}
-	}
+//		}
+//	}
 
 //	char x[33];
 //	getMessage(x);
