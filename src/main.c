@@ -28,7 +28,10 @@ int main() {
 //	Packet p = toPacket(x);
 //	printPacket(&p);
 
-
+	while (true) {
+        sayHelloWorld();
+        sleep_ms(5000);
+    }
 
 	return 0;
 }
