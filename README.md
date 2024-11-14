@@ -1,4 +1,7 @@
 # Point to Point Infrared Data Transmission built using C
+## Abstract
+This project aims to implement wireless point-to-point data transmission using laser diodes, programmed entirely in C. Each endpoint utilizes a Raspberry Pi Pico RP2040 microcontroller to manage data transmission and reception. 
+
 ## Credits
 #### John A. Baker
 Undergraduate at Purdue University majoring in Cybersecurity
