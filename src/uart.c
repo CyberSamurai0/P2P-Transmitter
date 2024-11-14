@@ -2,7 +2,10 @@
 #include "bytes.h"
 #include "uart.h"
 
-void sendByte(Byte *b) {
+#define TX_PIN 0
+#define RX_PIN 1
+
+void printByte(Byte *b) {
 	if (b->value) {
 		printf("%c", b->value & 128 ? '1' : '0');
 		printf("%c", b->value & 64 ? '1' : '0');
@@ -16,12 +19,51 @@ void sendByte(Byte *b) {
 	}
 }
 
-void sendPacket(Packet *p) {
+void sendByte(Byte *b, int delay_ms) {
+	if (b->value) {
+		b->value & 128 ? gpio_put(TX_PIN, 1) : gpio_put(TX_PIN, 0);
+		sleep_ms(delay_ms);
+
+		b->value & 64 ? gpio_put(TX_PIN, 1) : gpio_put(TX_PIN, 0);
+		sleep_ms(delay_ms);
+
+		b->value & 32 ? gpio_put(TX_PIN, 1) : gpio_put(TX_PIN, 0);
+		sleep_ms(delay_ms);
+
+		b->value & 16 ? gpio_put(TX_PIN, 1) : gpio_put(TX_PIN, 0);
+		sleep_ms(delay_ms);
+
+		b->value & 8 ? gpio_put(TX_PIN, 1) : gpio_put(TX_PIN, 0);
+		sleep_ms(delay_ms);
+
+		b->value & 4 ? gpio_put(TX_PIN, 1) : gpio_put(TX_PIN, 0);
+		sleep_ms(delay_ms);
+
+		b->value & 2 ? gpio_put(TX_PIN, 1) : gpio_put(TX_PIN, 0);
+		sleep_ms(delay_ms);
+
+		b->value & 1 ? gpio_put(TX_PIN, 1) : gpio_put(TX_PIN, 0);
+		sleep_ms(delay_ms);
+	}
+}
+
+void sendPacket(Packet *p, int pin) {
 	Byte* b = p->firstByte;
+
+	const delay_ms = 50;
+
+	gpio_put(TX_PIN, 0); // Set to low (START BIT)
+	sleep_ms(delay_ms); // Wait at least one interval
+
 	while (b) { // Check if b->next is undefined
-		sendByte(b);
+		sendByte(b, delay_ms);
 		b = b->next; // Increment over the linked list
 	}
+
+	// TODO implement parity?
+
+	gpio_put(TX_PIN, 1); // Set to high (STOP BIT)
+	sleep_ms(delay_ms); // Wait at least one interval
 }
 
 void sendMessage(char *m) {
