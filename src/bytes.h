@@ -15,8 +15,8 @@ typedef struct packet {
 	Byte* lastByte;
 } Packet;
 
-Byte toByte(char c);
-Packet toPacket(char* s);
+Byte* toByte(char c);
+Packet* toPacket(char* s);
 void printPacket(Packet* p);
 
 #endif //P2P_TRANSMITTER_BYTES_H

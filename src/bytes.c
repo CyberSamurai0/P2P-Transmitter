@@ -2,24 +2,32 @@
 #include <stdio.h>
 #include "bytes.h"
 
-Byte toByte(char c) {
-	Byte b = {.value = (uint8_t)c};
+Byte* toByte(char c) {
+	Byte* b = malloc(sizeof(Byte));
+	b->value = (uint8_t)c;
 	return b;
 }
 
-Packet toPacket(char* s) {
-	Packet p = {.length = 0};
-	Byte* previousByte = {0};
+Packet* toPacket(char* s) {
+	Packet* p = malloc(sizeof(Packet));
+	
+	if (p == NULL) {
+		printf("\nPacket malloc failed\n");
+	}
+
+	p->length = 0;
+
+	Byte* previousByte; // Track the last byte so we can double-link
 	while (*s) {
-		Byte b = toByte(*s);
-		if (!p.firstByte) p.firstByte = &b;
-		if (previousByte) {
+		Byte* b = toByte(*s);
+		if (!p->firstByte) p->firstByte = b;
+		if (previousByte) { // If there is a previous byte, set its next byte to be this one!
 			previousByte->next = &b;
-			b.previous = previousByte;
+			b->previous = previousByte;
 		}
-		previousByte = &b;
-		p.lastByte = &b;
-		p.length += 1;
+		previousByte = &b; // Set this byte to be the new previous byte
+		p->lastByte = &b; // Update "last byte" of packet
+		p->length += 1; // Increase length
 		s++;
 	}
 	return p;
