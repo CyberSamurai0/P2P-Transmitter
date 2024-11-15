@@ -35,23 +35,27 @@ int main() {
 
 	int ON = 0;
 	while (true) {
-		sleep_ms(1000);
+		// sleep_ms(1000);
 
-		ON ? gpio_put(TX_PIN, 1) : gpio_put(TX_PIN, 0);
-		ON = !ON;
+		// ON ? gpio_put(TX_PIN, 1) : gpio_put(TX_PIN, 0);
+		// ON = !ON;
 		
 		printf("\n\nHello!\n");
+
+		sendPacket(m, TX_PIN);
 		
-		printf("Packet[%ld] (%p)\n", sizeof(*m), m);
-		printf("\tLength: %d\n", m->length);
-		printf("\tFirst Byte[%ld] (%p) - Value: '%c'\n", sizeof(*(m->firstByte)), m->firstByte, m->firstByte->value);
-		printf("\tLast Byte[%ld] (%p) - Value: '%c'\n", sizeof(*(m->lastByte)), m->lastByte, m->lastByte->value);
+		// printf("Packet[%ld] (%p)\n", sizeof(*m), m);
+		// printf("\tLength: %d\n", m->length);
+		// printf("\tFirst Byte[%ld] (%p) - Value: '%c'\n", sizeof(*(m->firstByte)), m->firstByte, m->firstByte->value);
+		// printf("\tLast Byte[%ld] (%p) - Value: '%c'\n", sizeof(*(m->lastByte)), m->lastByte, m->lastByte->value);
 
-		printf("Let's try printByte(m->firstByte).");
-		printByte(m->firstByte);
+		// printf("Let's try printByte(m->firstByte).\n");
+		// printByte(m->firstByte);
 
-		printf("Let's try printPacket(m).");
-		printPacket(m);
+		// printf("Let's try printPacket(m).\n");
+		// printPacket(m);
+
+
 	}
 
 	freePacket(m);
