@@ -31,13 +31,30 @@ int main() {
 
 	sayHelloWorld();
 
-	// Packet* m = toPacket("The quick brown fox jumps over the lazy dog.");
+	Packet* m = toPacket("The quick brown fox jumps over the lazy dog.");
 
+	int ON = 0;
 	while (true) {
 		sleep_ms(1000);
-		printf("Hello!");
-		// printPacket(m);
+
+		ON ? gpio_put(TX_PIN, 1) : gpio_put(TX_PIN, 0);
+		ON = !ON;
+		
+		printf("\n\nHello!\n");
+		
+		printf("Packet[%ld] (%p)\n", sizeof(*m), m);
+		printf("\tLength: %d\n", m->length);
+		printf("\tFirst Byte[%ld] (%p) - Value: '%c'\n", sizeof(*(m->firstByte)), m->firstByte, m->firstByte->value);
+		printf("\tLast Byte[%ld] (%p) - Value: '%c'\n", sizeof(*(m->lastByte)), m->lastByte, m->lastByte->value);
+
+		printf("Let's try printByte(m->firstByte).");
+		printByte(m->firstByte);
+
+		printf("Let's try printPacket(m).");
+		printPacket(m);
 	}
+
+	freePacket(m);
 
 	// while (true) {
 	// 	sleep_ms(1000);
