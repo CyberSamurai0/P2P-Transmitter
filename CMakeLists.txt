@@ -43,6 +43,8 @@ add_executable(P2P-Transmitter
     src/uart.h
     src/bytes.c
     src/bytes.h
+    src/packet-queue.c
+    src/packet-queue.h
 )
 
 pico_set_program_name(P2P-Transmitter "P2P-Transmitter")
