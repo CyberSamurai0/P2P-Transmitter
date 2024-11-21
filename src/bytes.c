@@ -43,7 +43,21 @@ Packet* toPacket(char* s) {
 		p->length += 1; // Increase length
 		s++;
 	}
-	printf("THE FIRST BYTE IS CURRENTLY: %p\n", p->firstByte);
+	// printf("THE FIRST BYTE IS CURRENTLY: %p\n", p->firstByte);
+	return p;
+}
+
+Packet* byteToPacket(Byte* b) {
+	Packet* p = malloc(sizeof(Packet));
+	if (DEBUG_MODE) printf("Allocated Packet [%p]\n", p);
+	if (p == NULL) {
+		printf("\nPacket malloc failed\n");
+	}
+
+	p->length = 1;
+	p->firstByte = b;
+	p->lastByte = b;
+
 	return p;
 }
 
