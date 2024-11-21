@@ -1,5 +1,5 @@
-#ifndef P2P_TRANSMITTER_BYTES_H
-#define P2P_TRANSMITTER_BYTES_H
+#ifndef P2P_TRANSMITTER_PACKET_QUEUE_H
+#define P2P_TRANSMITTER_PACKET_QUEUE_H
 
 #include <stdint.h>
 #include "bytes.h"
@@ -16,8 +16,14 @@ typedef struct PacketQueue {
 	PacketQueueNode* last;
 } PacketQueue;
 
+// Initializes a Queue and returns the pointer
+PacketQueue* createQueue();
+
+// Initializes a QueueNode and returns the pointer
+PacketQueueNode* createQueueNode(Packet* p);
+
 // Removes the first item from the queue and returns it
-PacketQueueNode popQueue(PacketQueue* q);
+PacketQueueNode* popQueue(PacketQueue* q);
 
 // Adds an item to the end of the queue
 void pushQueue(PacketQueue* q, PacketQueueNode* n);
@@ -28,4 +34,4 @@ void freePacketQueueNode(PacketQueueNode* n);
 // Frees all contained PacketQueueNodes, Packets, and itself
 void freePacketQueue(PacketQueue* q);
 
-#endif //P2P_TRANSMITTER_BYTES_H
+#endif //P2P_TRANSMITTER_PACKET_QUEUE_H

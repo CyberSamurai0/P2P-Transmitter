@@ -6,6 +6,7 @@
 #include "networking.h"
 #include "uart.h"
 #include "bytes.h"
+#include "packet-queue.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include "pico/stdlib.h"
@@ -18,11 +19,14 @@
 int main() {
 	stdio_init_all(); // Initialize STDIO
 
+	// Initialize Transmission Pin
 	gpio_init(TX_PIN);
 	gpio_set_dir(TX_PIN, GPIO_OUT);
-	gpio_put(TX_PIN, 1);
+	gpio_put(TX_PIN, 1); // Default to High
 	
-	// gpio_init(RX_PIN);
+	// Initialize Reception Pin
+	gpio_init(RX_PIN);
+	gpio_set_dir(RX_PIN, GPIO_IN);
 	
 	// Initialise the Wi-Fi chip and onboard LED
     if (cyw43_arch_init()) {
@@ -31,18 +35,33 @@ int main() {
 
 	Packet* m = toPacket("The quick brown fox jumps over the lazy dog.");
 
-	int ON = 0;
+	PacketQueue* queue = createQueue();
+
+	int LED_ON = 0;
+
+	// while (!stdio_usb_connected) {
+	// 	sleep_ms(50);
+	// }
+
 	while (true) {
-		ON = !ON;
-		cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, ON); // Toggle LED on each input
+		LED_ON = !LED_ON;
+		cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, LED_ON); // Toggle LED on each input
 
 		printf("\nTesting Scan: ");
 		char x = 0; // Reset on every iteration
 		while (x != '\n' && x != '\r') {
 			scanf("%c", &x); // Scan char by char
 			printf("%c", x); // Print char
+			Packet* m2 = byteToPacket(toByte(x)); // Create a packet for each character (like SSH)
+			PacketQueueNode* n = createQueueNode(m2);
+			pushQueue(queue, n);
+			// printPacket(m2);
+			freePacket(m2);
 		}
+		// TODO manually collect string input to be added to queue
+
 		printf("\r\nYEEHAW\n");
+		// PRINT THE QUEUE HERE!!!
 	}
 
 	while (true) {	
