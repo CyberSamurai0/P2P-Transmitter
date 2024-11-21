@@ -17,6 +17,7 @@ typedef struct packet {
 
 Byte* toByte(char c);
 Packet* toPacket(char* s);
+Packet* byteToPacket(Byte* b);
 void printByte(Byte* b);
 void freePacket(Packet* p);
 void printPacket(Packet* p);
