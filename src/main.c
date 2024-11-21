@@ -33,6 +33,19 @@ int main() {
 
 	int ON = 0;
 	while (true) {
+		ON = !ON;
+		cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, ON); // Toggle LED on each input
+
+		printf("\nTesting Scan: ");
+		char x = 0; // Reset on every iteration
+		while (x != '\n' && x != '\r') {
+			scanf("%c", &x); // Scan char by char
+			printf("%c", x); // Print char
+		}
+		printf("\r\nYEEHAW\n");
+	}
+
+	while (true) {	
 		// sleep_ms(1000);
 
 		// ON ? gpio_put(TX_PIN, 1) : gpio_put(TX_PIN, 0);
