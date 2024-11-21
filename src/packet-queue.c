@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "packet-queue.h"
 
+
+
 // Removes the first item from the queue and returns it
 PacketQueueNode popQueue(PacketQueue* q) {
 
@@ -19,5 +21,5 @@ void freePacketQueueNode(PacketQueueNode* n) {
 
 // Frees all contained PacketQueueNodes, Packets, and itself
 void freePacketQueue(PacketQueue* q) {
-    
+
 }
