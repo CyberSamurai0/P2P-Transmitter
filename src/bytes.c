@@ -3,9 +3,11 @@
 #include <stdlib.h>
 #include "bytes.h"
 
+const int DEBUG_MODE = 0;
+
 Byte* toByte(char c) {
 	Byte* b = malloc(sizeof(Byte));
-	printf("Allocated Byte [%p]\n", b);
+	if (DEBUG_MODE) printf("Allocated Byte [%p]\n", b);
 	b->value = (uint8_t)c;
 	b->next = NULL;
 	b->previous = NULL;
@@ -14,7 +16,7 @@ Byte* toByte(char c) {
 
 Packet* toPacket(char* s) {
 	Packet* p = malloc(sizeof(Packet));
-	printf("Allocated Packet [%p]\n", p);
+	if (DEBUG_MODE) printf("Allocated Packet [%p]\n", p);
 	if (p == NULL) {
 		printf("\nPacket malloc failed\n");
 	}
@@ -27,10 +29,10 @@ Packet* toPacket(char* s) {
 	Byte* previousByte = NULL; // Track the last byte so we can double-link
 	while (*s) {
 		Byte* b = toByte(*s);
-		printf("Byte Created (%p) with value '%c'\n", b, b->value);
+		// printf("Byte Created (%p) with value '%c'\n", b, b->value);
 		if (!(p->firstByte)) {
 			p->firstByte = b;
-			printf("FirstByte set to %p\n", p->firstByte);
+			// printf("FirstByte set to %p\n", p->firstByte);
 		}
 		if (previousByte) { // If there is a previous byte, set its next byte to be this one!
 			previousByte->next = b;
