@@ -10,12 +10,13 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
+#include "pico/cyw43_arch.h" // Wireless Chip and Onboard LED
 
 #define TX_PIN 0
 #define RX_PIN 1
 
 int main() {
-	stdio_init_all();
+	stdio_init_all(); // Initialize STDIO
 
 	gpio_init(TX_PIN);
 	gpio_set_dir(TX_PIN, GPIO_OUT);
@@ -23,13 +24,10 @@ int main() {
 	
 	// gpio_init(RX_PIN);
 	
-	// Initialise the Wi-Fi chip
-    // if (cyw43_arch_init()) {
-    //     printf("Wi-Fi init failed\n");
-    //     return -1;
-    // }
-
-	sayHelloWorld();
+	// Initialise the Wi-Fi chip and onboard LED
+    if (cyw43_arch_init()) {
+        printf("Wi-Fi and Onboard LED init failed\n");
+    } else cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
 
 	Packet* m = toPacket("The quick brown fox jumps over the lazy dog.");
 
