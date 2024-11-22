@@ -5,7 +5,7 @@
 #include "bytes.h"
 
 typedef struct PacketQueueNode {
-	struct packet* value;
+	Packet* value;
 	struct PacketQueueNode* next;
 	struct PacketQueueNode* prev;
 } PacketQueueNode;
@@ -19,7 +19,7 @@ typedef struct PacketQueue {
 // Initializes a Queue and returns the pointer
 PacketQueue* createQueue();
 
-// Initializes a QueueNode and returns the pointer
+// Initializes a QueueNode containing the given Packet and returns the pointer
 PacketQueueNode* createQueueNode(Packet* p);
 
 // Removes the first item from the queue and returns it

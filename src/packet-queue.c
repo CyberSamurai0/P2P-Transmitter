@@ -11,6 +11,7 @@ PacketQueue* createQueue() {
     return q;
 }
 
+// Initializes a QueueNode containing the given Packet and returns the pointer
 PacketQueueNode* createQueueNode(Packet* p) {
     PacketQueueNode* n = malloc(sizeof(PacketQueueNode));
     n->value = p;
@@ -26,9 +27,13 @@ PacketQueueNode* popQueue(PacketQueue* q) {
 
     if (front->next) {
         q->first = front->next; // Update .first
-        front->next->prev = NULL; // Unset next's .prev
+        if (q->first) q->first->prev = NULL; // Unset next's .prev
+        // q->last is already the last item when we pop from the front, no need to update
         front->next = NULL; // Don't delete the entire list!
-    } else q->first = NULL; // If no remaining elements, unset .first
+    } else {
+        q->first = NULL; // If no remaining elements, unset .first
+        q->last = NULL; // Also unset last
+    }
 
     q->length--; // Decrement length
     return front; // Return pointer to removed item
@@ -46,10 +51,16 @@ void pushQueue(PacketQueue* q, PacketQueueNode* n) {
 
 // Frees the associated Packet and itself
 void freePacketQueueNode(PacketQueueNode* n) {
-
+    freePacket(n->value); // Free the packet
+    n->next = NULL;
+    n->prev = NULL;
+    free(n); // Free the node
 }
 
 // Frees all contained PacketQueueNodes, Packets, and itself
 void freePacketQueue(PacketQueue* q) {
-
+    while (q->first) {
+        freePacketQueueNode(popQueue(q)); // Pop each item from the queue and free it
+    }
+    free(q); // Free the queue itself
 }
