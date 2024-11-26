@@ -94,8 +94,12 @@ void sendMessage(char *m) {
 #define STOP_BITS 1
 #define PARITY    UART_PARITY_NONE
 
+// Variable for keeping track of the received packet
+Packet receivedPacket = {0, NULL, NULL};
+
 // Function to add a byte to the packet
-void addByteToPacket(Packet* packet, uint8_t value) {
+void addByteToPacket(Packet* packet, uint8_t value) 
+{
     // Dynamically allocate memory for a new Byte struct
     Byte* newByte = (Byte*)malloc(sizeof(Byte));
     // If memory allocation fails, exit the function
@@ -109,10 +113,12 @@ void addByteToPacket(Packet* packet, uint8_t value) {
     newByte->previous = packet->lastByte;
 
     // Check if the packet already has a lastByte (packet is not empty)
-    if (packet->lastByte) {
+    if (packet->lastByte) 
+	{
         // Update the current lastByte's next pointer to the new Byte
         packet->lastByte->next = newByte;
-    } else {
+    } else 
+	{
         // If the packet is empty, set the firstByte to the new Byte
         packet->firstByte = newByte;
     }
@@ -124,7 +130,8 @@ void addByteToPacket(Packet* packet, uint8_t value) {
 }
 
 // Function to receive and reconstruct the message
-void receiveMessage() {
+void receiveMessage() 
+{
     // Continue reading while there is data available in the UART buffer
     while (uart_is_readable(UART_ID)) {
         // Read a byte from the UART receiver
