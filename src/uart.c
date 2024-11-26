@@ -87,4 +87,56 @@ void sendMessage(char *m) {
 
 		m++; // Move to next character
 	}
+
+#define UART_ID uart0
+#define BAUD_RATE 20
+#define DATA_BITS 8
+#define STOP_BITS 1
+#define PARITY    UART_PARITY_NONE
+
+// Function to add a byte to the packet
+void addByteToPacket(Packet* packet, uint8_t value) {
+    // Dynamically allocate memory for a new Byte struct
+    Byte* newByte = (Byte*)malloc(sizeof(Byte));
+    // If memory allocation fails, exit the function
+    if (!newByte) return;
+
+    // Assign the value to the new Byte's value field
+    newByte->value = value;
+    // Set the next pointer of the new Byte to NULL (no next node yet)
+    newByte->next = NULL;
+    // Set the previous pointer to point to the current last Byte in the packet
+    newByte->previous = packet->lastByte;
+
+    // Check if the packet already has a lastByte (packet is not empty)
+    if (packet->lastByte) {
+        // Update the current lastByte's next pointer to the new Byte
+        packet->lastByte->next = newByte;
+    } else {
+        // If the packet is empty, set the firstByte to the new Byte
+        packet->firstByte = newByte;
+    }
+
+    // Update the packet's lastByte to the new Byte
+    packet->lastByte = newByte;
+    // Increment the length of the packet
+    packet->length++;
+}
+
+// Function to receive and reconstruct the message
+void receiveMessage() {
+    // Continue reading while there is data available in the UART buffer
+    while (uart_is_readable(UART_ID)) {
+        // Read a byte from the UART receiver
+        uint8_t ch = uart_getc(UART_ID);
+
+        // Mask the received byte to ensure it is only 8 bits
+        uint8_t data = ch & 0xFF;
+
+        // Add the valid byte to the received packet
+        addByteToPacket(&receivedPacket, data);
+    }
+}
+
+
 }

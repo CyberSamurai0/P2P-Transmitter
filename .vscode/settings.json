@@ -43,5 +43,6 @@
         "gpio.h": "c",
         "cyw43_arch.h": "c",
         "span": "c"
-    }
+    },
+    "C_Cpp.errorSquiggles": "enabled"
 }
