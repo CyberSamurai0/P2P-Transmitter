@@ -88,15 +88,15 @@ Packet* byteToPacket(Byte* b) {
 	return p;
 }
 
-/// @brief Inserts a Byte at the end of a Packet
+/// @brief Inserts a Byte at the end of a Packet. This function ignores linked Bytes, so they should be handled appropriately.
 /// @param p Pointer to the Packet to be modified
-/// @param b Pointer to the Byte to be appended. The values of .previous and .next will be erased; do not use with more than one Byte per function call.
+/// @param b Pointer to the Byte to be appended. The addresses stored within .previous and .next will be overwritten.
 void packetAppendByte(Packet* p, Byte* b) {
-	// Clear existing references from the Byte, and pray that the caller handled them appropriately
+	// Clear existing pointers within the Byte, and pray that the caller handled them appropriately
 	b->next = NULL;
 	b->previous = NULL;
 
-	// Assuming that both pointers are set appropriately...
+	// Assuming that both Packet pointers are set appropriately...
 	if (p->lastByte) { // If the Packet is not empty,
 		p->lastByte->next = b; // Add to the end of the Byte sequence
 		b->previous = p->lastByte; // Track the previous Byte before we lose the reference
