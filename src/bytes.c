@@ -5,11 +5,6 @@
 
 const int DEBUG_MODE = 0;
 
-/**
- * @file
- * @brief Provides methods for the Byte and Packet structures
- */
-
 Byte* toByte(char c) {
 	Byte* b = malloc(sizeof(Byte));
 
