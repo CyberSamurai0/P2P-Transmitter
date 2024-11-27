@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 /// @brief Double Linked List Node wrapper for an 8-bit integer
+/// @addtogroup Packet
 typedef struct byte {
 	/// @brief 8-bit data portion of the Byte structure
 	uint8_t value;
@@ -16,6 +17,7 @@ typedef struct byte {
 } Byte;
 
 /// @brief Double Linked List structure with tracked length
+/// @addtogroup Packet
 typedef struct packet {
 	/// @brief Number of contained Bytes within the Packet. This value is not reliable and must be updated in any custom Packet implementations.
 	int length;
