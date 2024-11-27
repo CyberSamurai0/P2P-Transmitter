@@ -83,7 +83,7 @@ void sendMessage(char *m) {
 
 // UART configuration constants
 #define UART_ID     uart0
-#define BAUD_RATE   20
+#define BAUD_RATE   20 // With no multiplexing, this equates to 1b/50ms
 #define DATA_BITS   8
 #define STOP_BITS   1
 #define PARITY      UART_PARITY_NONE
