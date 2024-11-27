@@ -99,7 +99,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="foldopen" id="foldopen00007" data-start="{" data-end="};">
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="structPacketQueueNode.html">    7</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structPacketQueueNode.html">PacketQueueNode</a> {</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <a class="code hl_struct" href="structpacket.html">Packet</a>* value;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <a class="code hl_struct" href="structPacket.html">Packet</a>* value;</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structPacketQueueNode.html">PacketQueueNode</a>* next;</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structPacketQueueNode.html">PacketQueueNode</a>* prev;</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>} <a class="code hl_struct" href="structPacketQueueNode.html">PacketQueueNode</a>;</div>
@@ -117,7 +117,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><a class="code hl_struct" href="structPacketQueue.html">PacketQueue</a>* createQueue();</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">// Initializes a QueueNode containing the given Packet and returns the pointer</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><a class="code hl_struct" href="structPacketQueueNode.html">PacketQueueNode</a>* createQueueNode(<a class="code hl_struct" href="structpacket.html">Packet</a>* p);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><a class="code hl_struct" href="structPacketQueueNode.html">PacketQueueNode</a>* createQueueNode(<a class="code hl_struct" href="structPacket.html">Packet</a>* p);</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">// Removes the first item from the queue and returns it</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><a class="code hl_struct" href="structPacketQueueNode.html">PacketQueueNode</a>* popQueue(<a class="code hl_struct" href="structPacketQueue.html">PacketQueue</a>* q);</div>
@@ -135,7 +135,7 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="abytes_8h_html"><div class="ttname"><a href="bytes_8h.html">bytes.h</a></div><div class="ttdoc">Declares Byte, Packet, and associated methods.</div></div>
 <div class="ttc" id="astructPacketQueueNode_html"><div class="ttname"><a href="structPacketQueueNode.html">PacketQueueNode</a></div><div class="ttdef"><b>Definition</b> packet-queue.h:7</div></div>
 <div class="ttc" id="astructPacketQueue_html"><div class="ttname"><a href="structPacketQueue.html">PacketQueue</a></div><div class="ttdef"><b>Definition</b> packet-queue.h:13</div></div>
-<div class="ttc" id="astructpacket_html"><div class="ttname"><a href="structpacket.html">packet</a></div><div class="ttdef"><b>Definition</b> bytes.h:26</div></div>
+<div class="ttc" id="astructPacket_html"><div class="ttname"><a href="structPacket.html">Packet</a></div><div class="ttdef"><b>Definition</b> packet.h:22</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

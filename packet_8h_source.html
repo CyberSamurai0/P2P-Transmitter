@@ -98,50 +98,62 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">// Byte struct representing a single byte in the linked list</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structbyte.html">byte</a> {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    uint8_t <a class="code hl_variable" href="structbyte.html#abc9d4fc007f2dc8243556b8dc891e233">value</a>;</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structbyte.html">byte</a>* <a class="code hl_variable" href="structbyte.html#ae651961d94dbaaeb0a3658c502ba39eb">next</a>;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structbyte.html">byte</a>* <a class="code hl_variable" href="structbyte.html#ad8c28038c648af3e49306c932d76c402">previous</a>;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>} <a class="code hl_struct" href="structbyte.html">Byte</a>;</div>
+<div class="foldopen" id="foldopen00008" data-start="{" data-end="};">
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="structByte.html">    8</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structByte.html">Byte</a> {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    uint8_t value;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structbyte.html">byte</a>* next;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structbyte.html">byte</a>* previous;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>} <a class="code hl_struct" href="structByte.html">Byte</a>;</div>
+</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">// Packet struct representing a sequence of bytes</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structpacket.html">packet</a> {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structpacket.html#a146f8dec4029aa113a1bd6996a83fadb">length</a>;              <span class="comment">// Number of bytes in the packet</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <a class="code hl_struct" href="structbyte.html">Byte</a>* <a class="code hl_variable" href="structpacket.html#add806bc56c0e6834e031deff31a308cf">firstByte</a>;         <span class="comment">// Pointer to the first byte</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <a class="code hl_struct" href="structbyte.html">Byte</a>* <a class="code hl_variable" href="structpacket.html#adf99ebc9ffe0dcf4634a07347d2d8391">lastByte</a>;          <span class="comment">// Pointer to the last byte</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    uint8_t identifier;      <span class="comment">// 4-bit packet identifier for reduced-packet context</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>} <a class="code hl_struct" href="structpacket.html">Packet</a>;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">// Packet cache for retransmission</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#define PACKET_CACHE_SIZE 16</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">extern</span> <a class="code hl_struct" href="structpacket.html">Packet</a>* PacketCache[PACKET_CACHE_SIZE];</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">extern</span> uint8_t rotator;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">// Byte functions</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><a class="code hl_struct" href="structbyte.html">Byte</a>* toByte(<span class="keywordtype">char</span> c);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">// Packet functions</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><a class="code hl_struct" href="structpacket.html">Packet</a>* createPacket();</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><a class="code hl_struct" href="structpacket.html">Packet</a>* createCachedPacket(uint8_t* data, <span class="keywordtype">int</span> length);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keywordtype">void</span> freePacket(<a class="code hl_struct" href="structpacket.html">Packet</a>* p);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">// Conversion functions</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>uint8_t* packetToArray(<a class="code hl_struct" href="structpacket.html">Packet</a>* p);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><a class="code hl_struct" href="structpacket.html">Packet</a>* arrayToPacket(uint8_t* data, <span class="keywordtype">int</span> length);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">// Sending and retransmitting</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keywordtype">void</span> sendPacket(uint8_t* data, <span class="keywordtype">int</span> length);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keywordtype">void</span> retransmit(uint8_t <span class="keywordtype">id</span>);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#endif </span><span class="comment">// PACKET_H</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#define PACKET_FLAGS_RETRANSMIT 0x01</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">// Packet struct representing a sequence of bytes</span></div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="structPacket.html">   22</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structPacket.html">Packet</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="structPacket.html#a6072404fc2b01bcd731fcb515d2102b7">   24</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structPacket.html#a6072404fc2b01bcd731fcb515d2102b7">length</a>;             <span class="comment">// Number of bytes in the packet</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="structPacket.html#abb6d100cc6a092b52f31bd0826b7b7ca">   28</a></span>    uint8_t <a class="code hl_variable" href="structPacket.html#abb6d100cc6a092b52f31bd0826b7b7ca">flags</a>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    uint8_t identifier;     <span class="comment">// 4-bit packet identifier for reduced-packet context</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="structPacket.html#ae578741f2ba4dbeefa6b822d9a152078">   32</a></span>    <a class="code hl_struct" href="structByte.html">Byte</a>* <a class="code hl_variable" href="structPacket.html#ae578741f2ba4dbeefa6b822d9a152078">firstByte</a>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structPacket.html#a47010c69c1c75be82e03f29df244d1c0">   34</a></span>    <a class="code hl_struct" href="structByte.html">Byte</a>* <a class="code hl_variable" href="structPacket.html#a47010c69c1c75be82e03f29df244d1c0">lastByte</a>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="structPacket.html#a270fc490182fbf3d2805d4eefbdcaf0d">   37</a></span>    uint8_t <a class="code hl_variable" href="structPacket.html#a270fc490182fbf3d2805d4eefbdcaf0d">parity</a>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>} <a class="code hl_struct" href="structPacket.html">Packet</a>;</div>
+</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">// Packet cache for retransmission</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#define PACKET_CACHE_SIZE 16</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">extern</span> <a class="code hl_struct" href="structPacket.html">Packet</a>* PacketCache[PACKET_CACHE_SIZE];</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">extern</span> uint8_t rotator;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">// Byte functions</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><a class="code hl_struct" href="structByte.html">Byte</a>* toByte(<span class="keywordtype">char</span> c);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">// Packet functions</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><a class="code hl_struct" href="structPacket.html">Packet</a>* createPacket();</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><a class="code hl_struct" href="structPacket.html">Packet</a>* createCachedPacket(uint8_t* data, <span class="keywordtype">int</span> length);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keywordtype">void</span> freePacket(<a class="code hl_struct" href="structPacket.html">Packet</a>* p);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">// Conversion functions</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>uint8_t* packetToArray(<a class="code hl_struct" href="structPacket.html">Packet</a>* p);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><a class="code hl_struct" href="structPacket.html">Packet</a>* arrayToPacket(uint8_t* data, <span class="keywordtype">int</span> length);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">// Sending and retransmitting</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keywordtype">void</span> sendPacket(uint8_t* data, <span class="keywordtype">int</span> length);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keywordtype">void</span> retransmit(uint8_t <span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#endif </span><span class="comment">// PACKET_H</span></div>
+<div class="ttc" id="astructByte_html"><div class="ttname"><a href="structByte.html">Byte</a></div><div class="ttdef"><b>Definition</b> packet.h:8</div></div>
+<div class="ttc" id="astructPacket_html"><div class="ttname"><a href="structPacket.html">Packet</a></div><div class="ttdef"><b>Definition</b> packet.h:22</div></div>
+<div class="ttc" id="astructPacket_html_a270fc490182fbf3d2805d4eefbdcaf0d"><div class="ttname"><a href="structPacket.html#a270fc490182fbf3d2805d4eefbdcaf0d">Packet::parity</a></div><div class="ttdeci">uint8_t parity</div><div class="ttdoc">Boolean used for even parity implementation.</div><div class="ttdef"><b>Definition</b> packet.h:37</div></div>
+<div class="ttc" id="astructPacket_html_a47010c69c1c75be82e03f29df244d1c0"><div class="ttname"><a href="structPacket.html#a47010c69c1c75be82e03f29df244d1c0">Packet::lastByte</a></div><div class="ttdeci">Byte * lastByte</div><div class="ttdoc">The last Byte contained within the Linked List, used for reverse traversal.</div><div class="ttdef"><b>Definition</b> packet.h:34</div></div>
+<div class="ttc" id="astructPacket_html_a6072404fc2b01bcd731fcb515d2102b7"><div class="ttname"><a href="structPacket.html#a6072404fc2b01bcd731fcb515d2102b7">Packet::length</a></div><div class="ttdeci">int length</div><div class="ttdoc">Number of contained Bytes within the Packet. This value is not reliable and must be updated in any cu...</div><div class="ttdef"><b>Definition</b> packet.h:24</div></div>
+<div class="ttc" id="astructPacket_html_abb6d100cc6a092b52f31bd0826b7b7ca"><div class="ttname"><a href="structPacket.html#abb6d100cc6a092b52f31bd0826b7b7ca">Packet::flags</a></div><div class="ttdeci">uint8_t flags</div><div class="ttdoc">Transmission flags.</div><div class="ttdef"><b>Definition</b> packet.h:28</div></div>
+<div class="ttc" id="astructPacket_html_ae578741f2ba4dbeefa6b822d9a152078"><div class="ttname"><a href="structPacket.html#ae578741f2ba4dbeefa6b822d9a152078">Packet::firstByte</a></div><div class="ttdeci">Byte * firstByte</div><div class="ttdoc">The first Byte contained within the Linked List, used for forward traversal.</div><div class="ttdef"><b>Definition</b> packet.h:32</div></div>
 <div class="ttc" id="astructbyte_html"><div class="ttname"><a href="structbyte.html">byte</a></div><div class="ttdef"><b>Definition</b> bytes.h:13</div></div>
-<div class="ttc" id="astructbyte_html_abc9d4fc007f2dc8243556b8dc891e233"><div class="ttname"><a href="structbyte.html#abc9d4fc007f2dc8243556b8dc891e233">byte::value</a></div><div class="ttdeci">uint8_t value</div><div class="ttdoc">8-bit data portion of the Byte structure</div><div class="ttdef"><b>Definition</b> bytes.h:15</div></div>
-<div class="ttc" id="astructbyte_html_ad8c28038c648af3e49306c932d76c402"><div class="ttname"><a href="structbyte.html#ad8c28038c648af3e49306c932d76c402">byte::previous</a></div><div class="ttdeci">struct byte * previous</div><div class="ttdoc">The previous Byte in a Packet sequence, or NULL if this is the first in the sequence.</div><div class="ttdef"><b>Definition</b> bytes.h:21</div></div>
-<div class="ttc" id="astructbyte_html_ae651961d94dbaaeb0a3658c502ba39eb"><div class="ttname"><a href="structbyte.html#ae651961d94dbaaeb0a3658c502ba39eb">byte::next</a></div><div class="ttdeci">struct byte * next</div><div class="ttdoc">The next Byte in a Packet sequence, or NULL if this is the last in the sequence.</div><div class="ttdef"><b>Definition</b> bytes.h:18</div></div>
-<div class="ttc" id="astructpacket_html"><div class="ttname"><a href="structpacket.html">packet</a></div><div class="ttdef"><b>Definition</b> bytes.h:26</div></div>
-<div class="ttc" id="astructpacket_html_a146f8dec4029aa113a1bd6996a83fadb"><div class="ttname"><a href="structpacket.html#a146f8dec4029aa113a1bd6996a83fadb">packet::length</a></div><div class="ttdeci">int length</div><div class="ttdoc">Number of contained Bytes within the Packet. This value is not reliable and must be updated in any cu...</div><div class="ttdef"><b>Definition</b> bytes.h:28</div></div>
-<div class="ttc" id="astructpacket_html_add806bc56c0e6834e031deff31a308cf"><div class="ttname"><a href="structpacket.html#add806bc56c0e6834e031deff31a308cf">packet::firstByte</a></div><div class="ttdeci">Byte * firstByte</div><div class="ttdoc">The first Byte contained within the Linked List, used for forward traversal.</div><div class="ttdef"><b>Definition</b> bytes.h:31</div></div>
-<div class="ttc" id="astructpacket_html_adf99ebc9ffe0dcf4634a07347d2d8391"><div class="ttname"><a href="structpacket.html#adf99ebc9ffe0dcf4634a07347d2d8391">packet::lastByte</a></div><div class="ttdeci">Byte * lastByte</div><div class="ttdoc">The last Byte contained within the Linked List, used for reverse traversal.</div><div class="ttdef"><b>Definition</b> bytes.h:34</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
