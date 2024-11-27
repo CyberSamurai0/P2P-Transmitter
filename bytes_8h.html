@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>P2P Transmitter: src/bytes.c File Reference</title>
+<title>P2P Transmitter: src/bytes.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,21 +89,43 @@ $(function(){ initResizable(false); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
-  <div class="headertitle"><div class="title">bytes.c File Reference</div></div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">bytes.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Provides methods for the Byte and Packet structures.  
+<p>Declares Byte, Packet, and associated methods.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &lt;stdio.h&gt;</code><br />
-<code>#include &lt;stdlib.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="bytes_8h_source.html">bytes.h</a>&quot;</code><br />
-</div><table class="memberdecls">
+</div>
+<p><a href="bytes_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbyte.html">byte</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpacket.html">packet</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a2877b64007f31a5a146965bd56478db8" id="r_a2877b64007f31a5a146965bd56478db8"><td class="memItemLeft" align="right" valign="top"><a id="a2877b64007f31a5a146965bd56478db8" name="a2877b64007f31a5a146965bd56478db8"></a>
+typedef struct <a class="el" href="structbyte.html">byte</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Byte</b></td></tr>
+<tr class="separator:a2877b64007f31a5a146965bd56478db8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a139a58c7fc96c54bf3705ec511bdd3e8" id="r_a139a58c7fc96c54bf3705ec511bdd3e8"><td class="memItemLeft" align="right" valign="top"><a id="a139a58c7fc96c54bf3705ec511bdd3e8" name="a139a58c7fc96c54bf3705ec511bdd3e8"></a>
+typedef struct <a class="el" href="structpacket.html">packet</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Packet</b></td></tr>
+<tr class="separator:a139a58c7fc96c54bf3705ec511bdd3e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:abb06346db5ec58abb81153418fe1d846" id="r_abb06346db5ec58abb81153418fe1d846"><td class="memItemLeft" align="right" valign="top"><a id="abb06346db5ec58abb81153418fe1d846" name="abb06346db5ec58abb81153418fe1d846"></a>
+<a class="el" href="structbyte.html">Byte</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>toByte</b> (char c)</td></tr>
+<tr class="separator:abb06346db5ec58abb81153418fe1d846"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbb84556a695bd486955831090e208c7" id="r_acbb84556a695bd486955831090e208c7"><td class="memItemLeft" align="right" valign="top"><a id="acbb84556a695bd486955831090e208c7" name="acbb84556a695bd486955831090e208c7"></a>
+<a class="el" href="structpacket.html">Packet</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>createPacket</b> ()</td></tr>
+<tr class="separator:acbb84556a695bd486955831090e208c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a67d3175291ac6a77e1a2fe4db47a31" id="r_a6a67d3175291ac6a77e1a2fe4db47a31"><td class="memItemLeft" align="right" valign="top"><a id="a6a67d3175291ac6a77e1a2fe4db47a31" name="a6a67d3175291ac6a77e1a2fe4db47a31"></a>
 <a class="el" href="structpacket.html">Packet</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>toPacket</b> (char *s)</td></tr>
 <tr class="separator:a6a67d3175291ac6a77e1a2fe4db47a31"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -122,15 +144,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>printPacket</b> (<a c
 <tr class="memitem:a08e3635cca52ded7ccbe4905966dcf0f" id="r_a08e3635cca52ded7ccbe4905966dcf0f"><td class="memItemLeft" align="right" valign="top"><a id="a08e3635cca52ded7ccbe4905966dcf0f" name="a08e3635cca52ded7ccbe4905966dcf0f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>freePacket</b> (<a class="el" href="structpacket.html">Packet</a> *p)</td></tr>
 <tr class="separator:a08e3635cca52ded7ccbe4905966dcf0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:aa9e9a13d853e4999458828dabe893ad9" id="r_aa9e9a13d853e4999458828dabe893ad9"><td class="memItemLeft" align="right" valign="top"><a id="aa9e9a13d853e4999458828dabe893ad9" name="aa9e9a13d853e4999458828dabe893ad9"></a>
-const int&#160;</td><td class="memItemRight" valign="bottom"><b>DEBUG_MODE</b> = 0</td></tr>
-<tr class="separator:aa9e9a13d853e4999458828dabe893ad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Provides methods for the Byte and Packet structures. </p>
+<div class="textblock"><p>Declares Byte, Packet, and associated methods. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
