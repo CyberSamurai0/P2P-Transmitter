@@ -88,9 +88,9 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
-<p>Creates a reserved, empty Packet struct instance.  
+<p>Converts a char* string to a Packet containing one Byte per char.  
 </p>
-<p>Creates a reserved, empty Packet struct instance. </p>
+<p>Converts a char* string to a Packet containing one Byte per char. </p>
 <p>Double Linked List structure with tracked length  .</p>
 <p>Double Linked List Node wrapper for an 8-bit integer  .</p>
 <p>Free the memory reserved for the packet and all contained bytes.</p>
@@ -98,8 +98,6 @@ $(function(){ initResizable(false); });
 <p>Print the detailed contents of a Byte struct instance.</p>
 <p>Inserts a Byte at the end of a Packet. This function ignores linked Bytes, so they should be handled appropriately.</p>
 <p>Creates a Packet structure containing the provided Byte.</p>
-<p>Converts a char* string to a Packet containing one Byte per char.</p>
-<dl class="section return"><dt>Returns</dt><dd>Pointer to the resulting Packet, NULL if there is no available memory  </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">s</td><td>The char* string to be converted to a Byte sequence </td></tr>
