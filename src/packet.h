@@ -5,18 +5,36 @@
 #include <stdlib.h>
 
 // Byte struct representing a single byte in the linked list
-typedef struct byte {
+typedef struct Byte {
     uint8_t value;
     struct byte* next;
     struct byte* previous;
 } Byte;
 
+/// @defgroup PACKET_FLAGS
+/// @{
+/// @brief Indicates that the Packet with the provided identifier should be retransmitted from the peer's cache
+#define PACKET_FLAGS_RETRANSMIT 0x01
+/// @}
+
+
 // Packet struct representing a sequence of bytes
-typedef struct packet {
-    int length;              // Number of bytes in the packet
-    Byte* firstByte;         // Pointer to the first byte
-    Byte* lastByte;          // Pointer to the last byte
-    uint8_t identifier;      // 4-bit packet identifier for reduced-packet context
+typedef struct Packet {
+	/// @brief Number of contained Bytes within the Packet. This value is not reliable and must be updated in any custom Packet implementations.
+    int length;             // Number of bytes in the packet
+
+    /// @brief Transmission flags
+    /// 
+    uint8_t flags;
+    uint8_t identifier;     // 4-bit packet identifier for reduced-packet context
+
+	/// @brief The first Byte contained within the Linked List, used for forward traversal
+    Byte* firstByte;
+	/// @brief The last Byte contained within the Linked List, used for reverse traversal
+    Byte* lastByte;
+
+    /// @brief Boolean used for even parity implementation
+    uint8_t parity;
 } Packet;
 
 // Packet cache for retransmission
