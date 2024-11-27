@@ -45,7 +45,9 @@ typedef struct Packet {
 extern Packet* PacketCache[PACKET_CACHE_SIZE];
 extern uint8_t rotator;
 
-// Byte functions
+/// @brief Converts a character to a Byte struct (linked list node)
+/// @param c 8-bit char to be used as the Byte's value 
+/// @return Pointer to the resulting Byte, NULL if there is no available memory
 Byte* toByte(char c);
 
 // Packet functions
