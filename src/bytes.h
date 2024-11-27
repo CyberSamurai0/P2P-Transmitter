@@ -15,11 +15,23 @@ typedef struct packet {
 	Byte* lastByte;
 } Packet;
 
+// Byte Creation
+
 Byte* toByte(char c);
+
+// Packet Creation
+
+Packet* createPacket();
 Packet* toPacket(char* s);
 Packet* byteToPacket(Byte* b);
+
+// Print Functions
+
 void printByte(Byte* b);
-void freePacket(Packet* p);
 void printPacket(Packet* p);
+
+// Memory Handling
+
+void freePacket(Packet* p);
 
 #endif //P2P_TRANSMITTER_BYTES_H

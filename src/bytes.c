@@ -5,8 +5,17 @@
 
 const int DEBUG_MODE = 0;
 
+/// @brief Converts a character to a Byte struct (linked list node)
+/// @param c 8-bit char to be used as the Byte's value 
+/// @return Pointer to the resulting Byte, NULL if there is no available memory
 Byte* toByte(char c) {
 	Byte* b = malloc(sizeof(Byte));
+
+	if (b == NULL) {
+		printf("\nByte malloc failed\n");
+		return NULL; // TODO this requires some handling
+	}
+
 	if (DEBUG_MODE) printf("Allocated Byte [%p]\n", b);
 	b->value = (uint8_t)c;
 	b->next = NULL;
@@ -14,16 +23,30 @@ Byte* toByte(char c) {
 	return b;
 }
 
-Packet* toPacket(char* s) {
+/// @brief Creates a reserved, empty Packet struct instance
+/// @return Pointer to the resulting Packet, NULL if there is no available memory
+Packet* createPacket() {
 	Packet* p = malloc(sizeof(Packet));
-	if (DEBUG_MODE) printf("Allocated Packet [%p]\n", p);
+
 	if (p == NULL) {
 		printf("\nPacket malloc failed\n");
+		return NULL; // TODO this requires some handling
 	}
 
-	p->length = 0;
+	if (DEBUG_MODE) printf("Allocated Packet [%p]\n", p);
+
 	p->firstByte = NULL;
 	p->lastByte = NULL;
+	p->length = 0;
+
+	return p;
+}
+
+/// @brief Converts a char* string to a Packet containing one Byte per char
+/// @param s The char* string to be converted to a Byte sequence
+/// @return Pointer to the resulting Packet, NULL if there is no available memory
+Packet* toPacket(char* s) {
+	Packet* p = createPacket();
 
 	Byte* firstByte = NULL; // The structure is not reliably empty memory
 	Byte* previousByte = NULL; // Track the last byte so we can double-link
@@ -47,6 +70,9 @@ Packet* toPacket(char* s) {
 	return p;
 }
 
+/// @brief Creates a Packet structure containing the provided Byte
+/// @param b Pointer to the Byte to be wrapped
+/// @return Pointer to the resulting Packet
 Packet* byteToPacket(Byte* b) {
 	Packet* p = malloc(sizeof(Packet));
 	if (DEBUG_MODE) printf("Allocated Packet [%p]\n", p);
@@ -54,21 +80,26 @@ Packet* byteToPacket(Byte* b) {
 		printf("\nPacket malloc failed\n");
 	}
 
-	p->length = 1;
+	p->length = 1; // TODO this is not always true, the provided Byte* could have .next set!!!
 	p->firstByte = b;
 	p->lastByte = b;
 
 	return p;
 }
 
+/// @brief Print the detailed contents of a Byte struct instance
+/// @param b Pointer to the Byte to be printed
 void printByte(Byte* b) {
-	printf("\nByte[%ld] (%p)\n", sizeof(*b), b);
+	printf("\nByte[%ld] (%p) {\n", sizeof(*b), b);
     printf("\tValue: %c\n", b->value);
     printf("\tPrev: %p\n", b->previous);
     printf("\tNext: %p\n", b->next);
+	printf("}\n");
 }
 
-void freePacket(Packet *p) {
+/// @brief Free the memory reserved for the packet and all contained bytes
+/// @param p Pointer to the Packet to be freed
+void freePacket(Packet* p) {
 	Byte* nextByte = p->firstByte;
 	while (nextByte) {
 		Byte* thisByte = nextByte;
@@ -78,10 +109,13 @@ void freePacket(Packet *p) {
 	free(p);
 }
 
-void printPacket(Packet *p) {
+/// @brief Display the bytes contained within the packet and their ASCII representation
+/// @param p Pointer to the Packet to be printed 
+void printPacket(Packet* p) {
 	printf("Packet[%d]\n", p->length);
 	Byte* b = p->firstByte;
 	while (b) {
+		// Convert to binary byte
 		printf("%c", b->value & 128 ? '1' : '0');
 		printf("%c", b->value & 64 ? '1' : '0');
 		printf("%c", b->value & 32 ? '1' : '0');
@@ -91,7 +125,10 @@ void printPacket(Packet *p) {
 		printf("%c", b->value & 2 ? '1' : '0');
 		printf("%c", b->value & 1 ? '1' : '0');
 
+		// Display character value
 		printf(" %c\n", (char) b->value);
+
+		// Repeat for next
 		b = b->next;
 	}
 }
