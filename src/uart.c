@@ -88,10 +88,10 @@ void sendMessage(char *m) {
 #define STOP_BITS   1
 #define PARITY      UART_PARITY_NONE
 
-// Variable for keeping track of the received packet
-Packet receivedPacket = {0, NULL, NULL};
-
-// Function to add a byte to the packet
+/// @brief Converts an 8-bit integer to a Byte and appends it to the supplied Packet
+/// @param packet The Packet structure to be modified
+/// @param value The data value to be converted to a Byte
+/// @deprecated This function should be implemented alongside the definition of the Packet structure. Use packetAppendByte() instead.
 void addByteToPacket(Packet* packet, uint8_t value) {
     // Dynamically allocate memory for a new Byte struct
     Byte* newByte = malloc(sizeof(Byte));
@@ -120,10 +120,15 @@ void addByteToPacket(Packet* packet, uint8_t value) {
     packet->length++;
 }
 
-// Function to receive and reconstruct the message
-void receiveMessage() {
+/// @brief Reads from UART and reconstructs incoming data into a Packet structure.
+/// @warning This function is blocking and will not exit until uart_is_readable(UART_ID) returns false. A parallel/async implementation is needed so that data can simultaneously be transferred.
+/// @return Pointer to the reconstructed Packet
+Packet* receiveMessage() {
+    // Create an empty Packet to store our reconstructed data
+    Packet* incomingPacket = createPacket(); // This can be NULL if we are out of memory
+
     // Continue reading while there is data available in the UART buffer
-    while (uart_is_readable(UART_ID)) {
+    while (incomingPacket && uart_is_readable(UART_ID)) {
         // Read a byte from the UART receiver
         uint8_t ch = uart_getc(UART_ID);
 
@@ -131,6 +136,8 @@ void receiveMessage() {
         uint8_t data = ch & 0xFF;
 
         // Add the valid byte to the received packet
-        addByteToPacket(&receivedPacket, data);
+        packetAppendByte(incomingPacket, toByte(data)); // TODO Test new function packetAppendByte to replace addByteToPacket
     }
+
+    return incomingPacket;
 }
