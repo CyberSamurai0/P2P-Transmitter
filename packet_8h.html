@@ -129,8 +129,8 @@ typedef struct Packet&#160;</td><td class="memItemRight" valign="bottom"><b>Pack
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:abb06346db5ec58abb81153418fe1d846" id="r_abb06346db5ec58abb81153418fe1d846"><td class="memItemLeft" align="right" valign="top"><a id="abb06346db5ec58abb81153418fe1d846" name="abb06346db5ec58abb81153418fe1d846"></a>
-<a class="el" href="structByte.html">Byte</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>toByte</b> (char c)</td></tr>
+<tr class="memitem:abb06346db5ec58abb81153418fe1d846" id="r_abb06346db5ec58abb81153418fe1d846"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structByte.html">Byte</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abb06346db5ec58abb81153418fe1d846">toByte</a> (char c)</td></tr>
+<tr class="memdesc:abb06346db5ec58abb81153418fe1d846"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a character to a <a class="el" href="structByte.html">Byte</a> struct (linked list node)  <br /></td></tr>
 <tr class="separator:abb06346db5ec58abb81153418fe1d846"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acbb84556a695bd486955831090e208c7" id="r_acbb84556a695bd486955831090e208c7"><td class="memItemLeft" align="right" valign="top"><a id="acbb84556a695bd486955831090e208c7" name="acbb84556a695bd486955831090e208c7"></a>
 <a class="el" href="structPacket.html">Packet</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>createPacket</b> ()</td></tr>
@@ -163,6 +163,41 @@ Variables</h2></td></tr>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>rotator</b></td></tr>
 <tr class="separator:abca3b43faf5b122babbccae3fa4294de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="abb06346db5ec58abb81153418fe1d846" name="abb06346db5ec58abb81153418fe1d846"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb06346db5ec58abb81153418fe1d846">&#9670;&#160;</a></span>toByte()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structByte.html">Byte</a> * toByte </td>
+          <td>(</td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>c</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">related</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts a character to a <a class="el" href="structByte.html">Byte</a> struct (linked list node) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>8-bit char to be used as the <a class="el" href="structByte.html">Byte</a>'s value </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the resulting <a class="el" href="structByte.html">Byte</a>, NULL if there is no available memory </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
