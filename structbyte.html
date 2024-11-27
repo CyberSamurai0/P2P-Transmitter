@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>P2P Transmitter: byte Struct Reference</title>
+<title>P2P Transmitter: byte Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -87,9 +87,12 @@ $(function(){ initResizable(false); });
   <div class="summary">
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structbyte-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">byte Struct Reference</div></div>
+  <div class="headertitle"><div class="title">byte Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Converts a character to a Byte struct (linked list node)  
+ <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -106,7 +109,16 @@ struct <a class="el" href="structbyte.html">byte</a> *&#160;</td><td class="memI
 <tr class="memdesc:ad8c28038c648af3e49306c932d76c402"><td class="mdescLeft">&#160;</td><td class="mdescRight">The previous Byte in a Packet sequence, or NULL if this is the first in the sequence. <br /></td></tr>
 <tr class="separator:ad8c28038c648af3e49306c932d76c402"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this struct was generated from the following files:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Converts a character to a Byte struct (linked list node) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>8-bit char to be used as the Byte's value </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the resulting Byte, NULL if there is no available memory </dd></dl>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/<a class="el" href="bytes_8h_source.html">bytes.h</a></li>
 <li>src/<a class="el" href="packet_8h_source.html">packet.h</a></li>
 </ul>
