@@ -7,7 +7,7 @@ const int DEBUG_MODE = 0;
 
 /**
  * @file
- * Provides methods for the Byte and Packet structures
+ * @brief Provides methods for the Byte and Packet structures
  */
 
 /// @brief Converts a character to a Byte struct (linked list node)

@@ -3,6 +3,11 @@
 
 #include <stdint.h>
 
+/**
+ * @file
+ * @brief Declares Byte, Packet, and associated methods
+ */
+
 /// @brief Double Linked List Node wrapper for an 8-bit integer
 /// @addtogroup Packet
 typedef struct byte {
