@@ -90,11 +90,16 @@ Packet* byteToPacket(Byte* b) {
 
 /// @brief Inserts a Byte at the end of a Packet
 /// @param p Pointer to the Packet to be modified
-/// @param b Pointer to the Byte to be appended
+/// @param b Pointer to the Byte to be appended. The values of .previous and .next will be erased; do not use with more than one Byte per function call.
 void packetAppendByte(Packet* p, Byte* b) {
+	// Clear existing references from the Byte, and pray that the caller handled them appropriately
+	b->next = NULL;
+	b->previous = NULL;
+
 	// Assuming that both pointers are set appropriately...
 	if (p->lastByte) { // If the Packet is not empty,
 		p->lastByte->next = b; // Add to the end of the Byte sequence
+		b->previous = p->lastByte; // Track the previous Byte before we lose the reference
 		p->lastByte = b; // Set as .lastByte
 	} else { // If the packet is empty,
 		p->firstByte = b; // Set as .firstByte
