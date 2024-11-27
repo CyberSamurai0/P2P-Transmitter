@@ -93,7 +93,7 @@ Packet receivedPacket = {0, NULL, NULL};
 // Function to add a byte to the packet
 void addByteToPacket(Packet* packet, uint8_t value) {
     // Dynamically allocate memory for a new Byte struct
-    Byte* newByte = (Byte*)malloc(sizeof(Byte));
+    Byte* newByte = malloc(sizeof(Byte));
     // If memory allocation fails, exit the function
     if (!newByte) return;
 
