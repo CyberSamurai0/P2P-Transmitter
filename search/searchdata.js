@@ -3,7 +3,7 @@ var indexSectionsWithContent =
   0: "bflnpv",
   1: "bp",
   2: "flnpv",
-  3: "bp"
+  3: "p"
 };
 
 var indexSectionNames =

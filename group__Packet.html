@@ -88,10 +88,51 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
-<p>Creates a reserved, empty Packet struct instance.  
+<p>Converts a character to a Byte struct (linked list node)  
 </p>
-<p>Creates a reserved, empty Packet struct instance. </p>
-<dl class="section return"><dt>Returns</dt><dd>Pointer to the resulting Packet, NULL if there is no available memory   </dd></dl>
+<p>Converts a character to a Byte struct (linked list node) </p>
+<p>Double Linked List structure with tracked length  .</p>
+<p>Double Linked List Node wrapper for an 8-bit integer  .</p>
+<p>Free the memory reserved for the packet and all contained bytes.</p>
+<p>Display the bytes contained within the packet and their ASCII representation.</p>
+<p>Print the detailed contents of a Byte struct instance.</p>
+<p>Inserts a Byte at the end of a Packet. This function ignores linked Bytes, so they should be handled appropriately.</p>
+<p>Creates a Packet structure containing the provided Byte.</p>
+<p>Converts a char* string to a Packet containing one Byte per char.</p>
+<p>Creates a reserved, empty Packet struct instance.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>8-bit char to be used as the Byte's value </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the resulting Byte, NULL if there is no available memory  </dd>
+<dd>
+Pointer to the resulting Packet, NULL if there is no available memory  </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s</td><td>The char* string to be converted to a Byte sequence </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the resulting Packet, NULL if there is no available memory  </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">b</td><td>Pointer to the Byte to be wrapped </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the resulting Packet  </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>Pointer to the Packet to be modified </td></tr>
+    <tr><td class="paramname">b</td><td>Pointer to the Byte to be appended. The addresses stored within .previous and .next will be overwritten.  </td></tr>
+    <tr><td class="paramname">b</td><td>Pointer to the Byte to be printed  </td></tr>
+    <tr><td class="paramname">p</td><td>Pointer to the Packet to be printed  </td></tr>
+    <tr><td class="paramname">p</td><td>Pointer to the Packet to be freed   </td></tr>
+  </table>
+  </dd>
+</dl>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
