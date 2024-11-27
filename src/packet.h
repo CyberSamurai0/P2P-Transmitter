@@ -4,6 +4,10 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+/**
+ * @file
+ */
+
 // Byte struct representing a single byte in the linked list
 typedef struct Byte {
     uint8_t value;
@@ -16,7 +20,6 @@ typedef struct Byte {
 /// @brief Indicates that the Packet with the provided identifier should be retransmitted from the peer's cache
 #define PACKET_FLAGS_RETRANSMIT 0x01
 /// @}
-
 
 // Packet struct representing a sequence of bytes
 typedef struct Packet {
