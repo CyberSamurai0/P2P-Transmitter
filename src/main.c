@@ -11,7 +11,23 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
-#include "pico/cyw43_arch.h" // Wireless Chip and Onboard LED
+
+
+// If the Pi Pico module used does not have an onboard LED, set this to 0.
+#define USE_ONBOARD_LED 1
+
+#if USE_ONBOARD_LED == 1
+	#include "pico/cyw43_arch.h" // Wireless Chip and Onboard LED
+	
+	/// @brief Sets the Raspberry Pi Pico W onboard LED to be on or off
+	/// @param state Boolean representing whether the light should be on or off
+	void setOnboardLED(bool state) {
+		// Check that the onboard LED exists (Pico W model)
+		if (cyw43_arch_gpio_put) {
+			cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN || 0, state);
+		}
+	}
+#endif
 
 #define TX_PIN 0
 #define RX_PIN 1
@@ -28,24 +44,29 @@ int main() {
 	gpio_init(RX_PIN);
 	gpio_set_dir(RX_PIN, GPIO_IN);
 	
-	// Initialise the Wi-Fi chip and onboard LED
-    if (cyw43_arch_init()) {
-        printf("Wi-Fi and Onboard LED init failed\n");
-    } else cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
+	if (USE_ONBOARD_LED) {
+		// Initialize the Wi-Fi chip and onboard LED
+		if (cyw43_arch_init()) { // Returns 0 on success
+			printf("Wi-Fi and Onboard LED init failed\n");
+		} else cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
+	}
+
+	int LED_ON = 0;
 
 	Packet* m = toPacket("The quick brown fox jumps over the lazy dog.");
 
 	PacketQueue* queue = createQueue();
 
-	int LED_ON = 0;
 
 	// while (!stdio_usb_connected) {
 	// 	sleep_ms(50);
 	// }
 
 	while (true) {
-		LED_ON = !LED_ON;
-		cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, LED_ON); // Toggle LED on each input
+		if (USE_ONBOARD_LED) {
+			LED_ON = !LED_ON;
+			setOnboardLED(LED_ON); // Toggle LED on each input
+		}
 
 		printf("\nTesting Scan: ");
 		char x = 0; // Reset on every iteration
