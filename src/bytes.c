@@ -35,9 +35,10 @@ Packet* createPacket() {
 
 	if (DEBUG_MODE) printf("Allocated Packet [%p]\n", p);
 
+	// Ensure that our pointers are zeroed out
 	p->firstByte = NULL;
 	p->lastByte = NULL;
-	p->length = 0;
+	p->length = 0; // Set length to 0
 
 	return p;
 }
@@ -97,18 +98,6 @@ void printByte(Byte* b) {
 	printf("}\n");
 }
 
-/// @brief Free the memory reserved for the packet and all contained bytes
-/// @param p Pointer to the Packet to be freed
-void freePacket(Packet* p) {
-	Byte* nextByte = p->firstByte;
-	while (nextByte) {
-		Byte* thisByte = nextByte;
-		nextByte = nextByte->next;
-		free(thisByte);
-	}
-	free(p);
-}
-
 /// @brief Display the bytes contained within the packet and their ASCII representation
 /// @param p Pointer to the Packet to be printed 
 void printPacket(Packet* p) {
@@ -131,4 +120,16 @@ void printPacket(Packet* p) {
 		// Repeat for next
 		b = b->next;
 	}
+}
+
+/// @brief Free the memory reserved for the packet and all contained bytes
+/// @param p Pointer to the Packet to be freed
+void freePacket(Packet* p) {
+	Byte* nextByte = p->firstByte;
+	while (nextByte) {
+		Byte* thisByte = nextByte;
+		nextByte = nextByte->next;
+		free(thisByte);
+	}
+	free(p);
 }
