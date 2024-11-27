@@ -88,6 +88,21 @@ Packet* byteToPacket(Byte* b) {
 	return p;
 }
 
+/// @brief Inserts a Byte at the end of a Packet
+/// @param p Pointer to the Packet to be modified
+/// @param b Pointer to the Byte to be appended
+void packetAppendByte(Packet* p, Byte* b) {
+	// Assuming that both pointers are set appropriately...
+	if (p->lastByte) { // If the Packet is not empty,
+		p->lastByte->next = b; // Add to the end of the Byte sequence
+		p->lastByte = b; // Set as .lastByte
+	} else { // If the packet is empty,
+		p->firstByte = b; // Set as .firstByte
+		p->lastByte = b; // Set as .lastByte
+	}
+	p->length++; // Increment length!
+}
+
 /// @brief Print the detailed contents of a Byte struct instance
 /// @param b Pointer to the Byte to be printed
 void printByte(Byte* b) {

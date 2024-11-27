@@ -17,7 +17,7 @@ typedef struct byte {
 
 /// @brief Double Linked List structure with tracked length
 typedef struct packet {
-	/// @brief Number of contained Bytes within the Packet
+	/// @brief Number of contained Bytes within the Packet. This value is not reliable and must be updated in any custom Packet implementations.
 	int length;
 
 	/// @brief The first Byte contained within the Linked List, used for forward traversal
@@ -36,6 +36,10 @@ Byte* toByte(char c);
 Packet* createPacket();
 Packet* toPacket(char* s);
 Packet* byteToPacket(Byte* b);
+
+// Packet Modification
+
+void packetAppendByte(Packet* p, Byte* b);
 
 // Print Functions
 
