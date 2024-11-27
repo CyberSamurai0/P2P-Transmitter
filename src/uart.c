@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "bytes.h"
 #include "uart.h"
+#include <stdlib.h>
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
 
