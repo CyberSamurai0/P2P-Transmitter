@@ -27,6 +27,7 @@ Byte* toByte(char c) {
 /// @brief Creates a reserved, empty Packet struct instance
 /// @return Pointer to the resulting Packet, NULL if there is no available memory
 /// @addtogroup Packet
+/// @fn
 Packet* createPacket() {
 	Packet* p = malloc(sizeof(Packet));
 
