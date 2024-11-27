@@ -5,6 +5,11 @@
 
 const int DEBUG_MODE = 0;
 
+/**
+ * @file
+ * Provides methods for the Byte and Packet structures
+ */
+
 /// @brief Converts a character to a Byte struct (linked list node)
 /// @param c 8-bit char to be used as the Byte's value 
 /// @return Pointer to the resulting Byte, NULL if there is no available memory
