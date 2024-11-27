@@ -8,6 +8,7 @@ const int DEBUG_MODE = 0;
 /// @brief Converts a character to a Byte struct (linked list node)
 /// @param c 8-bit char to be used as the Byte's value 
 /// @return Pointer to the resulting Byte, NULL if there is no available memory
+/// @addtogroup Byte
 Byte* toByte(char c) {
 	Byte* b = malloc(sizeof(Byte));
 
@@ -25,6 +26,7 @@ Byte* toByte(char c) {
 
 /// @brief Creates a reserved, empty Packet struct instance
 /// @return Pointer to the resulting Packet, NULL if there is no available memory
+/// @addtogroup Packet
 Packet* createPacket() {
 	Packet* p = malloc(sizeof(Packet));
 
