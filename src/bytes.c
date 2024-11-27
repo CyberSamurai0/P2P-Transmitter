@@ -10,10 +10,6 @@ const int DEBUG_MODE = 0;
  * @brief Provides methods for the Byte and Packet structures
  */
 
-/// @brief Converts a character to a Byte struct (linked list node)
-/// @param c 8-bit char to be used as the Byte's value 
-/// @return Pointer to the resulting Byte, NULL if there is no available memory
-/// @relates byte
 Byte* toByte(char c) {
 	Byte* b = malloc(sizeof(Byte));
 
@@ -29,9 +25,6 @@ Byte* toByte(char c) {
 	return b;
 }
 
-/// @brief Creates a reserved, empty Packet struct instance
-/// @return Pointer to the resulting Packet, NULL if there is no available memory
-/// @relates packet
 Packet* createPacket() {
 	Packet* p = malloc(sizeof(Packet));
 
@@ -50,10 +43,6 @@ Packet* createPacket() {
 	return p;
 }
 
-/// @brief Converts a char* string to a Packet containing one Byte per char
-/// @param s The char* string to be converted to a Byte sequence
-/// @return Pointer to the resulting Packet, NULL if there is no available memory
-/// @addtogroup Packet
 Packet* toPacket(char* s) {
 	Packet* p = createPacket();
 
@@ -79,10 +68,6 @@ Packet* toPacket(char* s) {
 	return p;
 }
 
-/// @brief Creates a Packet structure containing the provided Byte
-/// @param b Pointer to the Byte to be wrapped
-/// @return Pointer to the resulting Packet
-/// @addtogroup Packet
 Packet* byteToPacket(Byte* b) {
 	Packet* p = malloc(sizeof(Packet));
 	if (DEBUG_MODE) printf("Allocated Packet [%p]\n", p);
@@ -97,10 +82,6 @@ Packet* byteToPacket(Byte* b) {
 	return p;
 }
 
-/// @brief Inserts a Byte at the end of a Packet. This function ignores linked Bytes, so they should be handled appropriately.
-/// @param p Pointer to the Packet to be modified
-/// @param b Pointer to the Byte to be appended. The addresses stored within .previous and .next will be overwritten.
-/// @addtogroup Packet
 void packetAppendByte(Packet* p, Byte* b) {
 	// Clear existing pointers within the Byte, and pray that the caller handled them appropriately
 	b->next = NULL;
@@ -118,9 +99,6 @@ void packetAppendByte(Packet* p, Byte* b) {
 	p->length++; // Increment length!
 }
 
-/// @brief Print the detailed contents of a Byte struct instance
-/// @param b Pointer to the Byte to be printed
-/// @addtogroup Packet
 void printByte(Byte* b) {
 	printf("\nByte[%ld] (%p) {\n", sizeof(*b), b);
     printf("\tValue: %c\n", b->value);
@@ -129,9 +107,7 @@ void printByte(Byte* b) {
 	printf("}\n");
 }
 
-/// @brief Display the bytes contained within the packet and their ASCII representation
-/// @param p Pointer to the Packet to be printed 
-/// @addtogroup Packet
+
 void printPacket(Packet* p) {
 	printf("Packet[%d]\n", p->length);
 	Byte* b = p->firstByte;
@@ -154,9 +130,6 @@ void printPacket(Packet* p) {
 	}
 }
 
-/// @brief Free the memory reserved for the packet and all contained bytes
-/// @param p Pointer to the Packet to be freed
-/// @addtogroup Packet
 void freePacket(Packet* p) {
 	Byte* nextByte = p->firstByte;
 	while (nextByte) {
