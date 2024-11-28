@@ -118,6 +118,9 @@ Macros</h2></td></tr>
 <tr class="memitem:aa7089c01538b339ae745173c117f95b9" id="r_aa7089c01538b339ae745173c117f95b9"><td class="memItemLeft" align="right" valign="top"><a id="aa7089c01538b339ae745173c117f95b9" name="aa7089c01538b339ae745173c117f95b9"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>RX_PIN</b>&#160;&#160;&#160;1</td></tr>
 <tr class="separator:aa7089c01538b339ae745173c117f95b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51aa1ba729152a873c5882ee5fa44cb4" id="r_a51aa1ba729152a873c5882ee5fa44cb4"><td class="memItemLeft" align="right" valign="top"><a id="a51aa1ba729152a873c5882ee5fa44cb4" name="a51aa1ba729152a873c5882ee5fa44cb4"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>PACKET_CACHE_SIZE</b>&#160;&#160;&#160;8</td></tr>
+<tr class="separator:a51aa1ba729152a873c5882ee5fa44cb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -125,6 +128,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a7710ce9c0942bdf4ba2f821ad55c1b19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Raspberry Pi Pico W onboard LED to be on or off.  <br /></td></tr>
 <tr class="separator:a7710ce9c0942bdf4ba2f821ad55c1b19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
+<tr class="memdesc:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entrypoint function for the program.  <br /></td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -144,7 +148,11 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Entrypoint function for the program. </p>
+<dl class="section return"><dt>Returns</dt><dd>Status code </dd></dl>
 <p>Caches the most recently transmitted packets to support retransmission</p>
+<p>The current usable index of PacketCache. This should reset to 0 if it exceeds the length of PacketCache.</p>
 <p>Store created Packets until they can be transmitted in sequence</p>
 
 </div>
