@@ -25,6 +25,7 @@ Packet* createPacket() {
         return NULL;
     }
     p->length = 0;
+    p->retransmit = 0; // Default to False
     p->firstByte = NULL;
     p->lastByte = NULL;
     return p;
