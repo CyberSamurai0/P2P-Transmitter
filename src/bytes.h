@@ -37,24 +37,24 @@ typedef struct packet {
 /// @brief Converts a character to a Byte struct (linked list node)
 /// @param c 8-bit char to be used as the Byte's value 
 /// @return Pointer to the resulting Byte, NULL if there is no available memory
-Byte* toByte(char c);
+Byte* toByte(char c); // done
 
 // Packet Creation
 
 /// @brief Creates a reserved, empty Packet struct instance
 /// @return Pointer to the resulting Packet, NULL if there is no available memory
 /// @relates packet
-Packet* createPacket();
+Packet* createPacket(); // done
 
 /// @brief Converts a char* string to a Packet containing one Byte per char
 /// @param s The char* string to be converted to a Byte sequence
 /// @return Pointer to the resulting Packet, NULL if there is no available memory
-Packet* toPacket(char* s);
+Packet* toPacket(char* s); // done
 
 /// @brief Creates a Packet structure containing the provided Byte
 /// @param b Pointer to the Byte to be wrapped
 /// @return Pointer to the resulting Packet
-Packet* byteToPacket(Byte* b);
+Packet* byteToPacket(Byte* b); // done
 
 // Packet Modification
 

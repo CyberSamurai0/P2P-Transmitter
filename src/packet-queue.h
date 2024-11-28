@@ -2,7 +2,7 @@
 #define P2P_TRANSMITTER_PACKET_QUEUE_H
 
 #include <stdint.h>
-#include "bytes.h"
+#include "packet.h"
 
 typedef struct PacketQueueNode {
 	Packet* value;

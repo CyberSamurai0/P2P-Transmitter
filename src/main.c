@@ -7,7 +7,7 @@
 
 #include "networking.h"
 #include "uart.h"
-#include "bytes.h"
+#include "packet.h"
 #include "packet-queue.h"
 #include <stdlib.h>
 #include <stdio.h>

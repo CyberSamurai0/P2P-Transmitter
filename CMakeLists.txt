@@ -41,8 +41,6 @@ add_executable(P2P-Transmitter
     src/networking.h
     src/uart.c
     src/uart.h
-    src/bytes.c
-    src/bytes.h
     src/packet.c
     src/packet.h
     src/packet-queue.c
