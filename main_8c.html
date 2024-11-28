@@ -90,7 +90,8 @@ $(function(){ initResizable(false); });
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">main.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -127,13 +128,52 @@ Functions</h2></td></tr>
 <tr class="memitem:a7710ce9c0942bdf4ba2f821ad55c1b19" id="r_a7710ce9c0942bdf4ba2f821ad55c1b19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7710ce9c0942bdf4ba2f821ad55c1b19">setOnboardLED</a> (bool state)</td></tr>
 <tr class="memdesc:a7710ce9c0942bdf4ba2f821ad55c1b19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Raspberry Pi Pico W onboard LED to be on or off.  <br /></td></tr>
 <tr class="separator:a7710ce9c0942bdf4ba2f821ad55c1b19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e32b4f778806fb492190a32f3dfb9e1" id="r_a0e32b4f778806fb492190a32f3dfb9e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e32b4f778806fb492190a32f3dfb9e1">cachePacket</a> (<a class="el" href="structPacket.html">Packet</a> *p)</td></tr>
+<tr class="memdesc:a0e32b4f778806fb492190a32f3dfb9e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a <a class="el" href="structPacket.html">Packet</a> to PacketCache and set its identifier to its index within the cache.  <br /></td></tr>
+<tr class="separator:a0e32b4f778806fb492190a32f3dfb9e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
 <tr class="memdesc:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entrypoint function for the program.  <br /></td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a5833db14ff8ed5e0126756bea523c232" id="r_a5833db14ff8ed5e0126756bea523c232"><td class="memItemLeft" align="right" valign="top"><a id="a5833db14ff8ed5e0126756bea523c232" name="a5833db14ff8ed5e0126756bea523c232"></a>
+<a class="el" href="structPacket.html">Packet</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>PacketCache</b> [PACKET_CACHE_SIZE] = {NULL}</td></tr>
+<tr class="memdesc:a5833db14ff8ed5e0126756bea523c232"><td class="mdescLeft">&#160;</td><td class="mdescRight">Caches the most recently transmitted packets to support retransmission. <br /></td></tr>
+<tr class="separator:a5833db14ff8ed5e0126756bea523c232"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28a6f3d5850900f3f256269bbbad174c" id="r_a28a6f3d5850900f3f256269bbbad174c"><td class="memItemLeft" align="right" valign="top"><a id="a28a6f3d5850900f3f256269bbbad174c" name="a28a6f3d5850900f3f256269bbbad174c"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>PacketCacheIndex</b> = 0</td></tr>
+<tr class="memdesc:a28a6f3d5850900f3f256269bbbad174c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current usable index of <a class="el" href="#a5833db14ff8ed5e0126756bea523c232">PacketCache</a>. This should reset to 0 if it exceeds the length of <a class="el" href="#a5833db14ff8ed5e0126756bea523c232">PacketCache</a>. <br /></td></tr>
+<tr class="separator:a28a6f3d5850900f3f256269bbbad174c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Program entrypoint and synchronization controller Point-to-Point Laser Diode Transmitter <a href="https://github.com/CyberSamurai0/P2P-Transmitter">https://github.com/CyberSamurai0/P2P-Transmitter</a>. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a0e32b4f778806fb492190a32f3dfb9e1" name="a0e32b4f778806fb492190a32f3dfb9e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e32b4f778806fb492190a32f3dfb9e1">&#9670;&#160;</a></span>cachePacket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cachePacket </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structPacket.html">Packet</a> *</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add a <a class="el" href="structPacket.html">Packet</a> to PacketCache and set its identifier to its index within the cache. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>Pointer to the <a class="el" href="structPacket.html">Packet</a> to be cached </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ae66f6b31b5ad750f1fe042a706a4e3d4" name="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">&#9670;&#160;</a></span>main()</h2>
 
@@ -151,8 +191,6 @@ Functions</h2></td></tr>
 
 <p>Entrypoint function for the program. </p>
 <dl class="section return"><dt>Returns</dt><dd>Status code </dd></dl>
-<p>Caches the most recently transmitted packets to support retransmission</p>
-<p>The current usable index of PacketCache. This should reset to 0 if it exceeds the length of PacketCache.</p>
 <p>Store created Packets until they can be transmitted in sequence</p>
 
 </div>
