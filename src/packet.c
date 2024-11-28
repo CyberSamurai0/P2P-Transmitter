@@ -40,6 +40,7 @@ Packet* createRetransmitPacket(uint8_t identifier) {
 }
 
 // Create a Packet from an array and cache it
+/// @deprecated
 Packet* createCachedPacket(uint8_t* data, int length) {
     Packet* p = arrayToPacket(data, length);
     if (!p) return NULL;
