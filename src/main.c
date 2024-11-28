@@ -33,6 +33,10 @@
 #define TX_PIN 0
 #define RX_PIN 1
 
+#define PACKET_CACHE_SIZE 8
+
+/// @brief Entrypoint function for the program
+/// @return Status code
 int main() {
 	stdio_init_all(); // Initialize STDIO
 
@@ -53,9 +57,11 @@ int main() {
 	}
 
 	int LED_ON = 0;
-
+	
 	/// @brief Caches the most recently transmitted packets to support retransmission
-	Packet* PacketCache[8] = {NULL};
+	Packet* PacketCache[PACKET_CACHE_SIZE] = {NULL};
+	/// @brief The current usable index of \ref PacketCache. This should reset to 0 if it exceeds the length of \ref PacketCache.
+	int rotator = 0;
 
 	/// @brief Store created Packets until they can be transmitted in sequence
 	PacketQueue* outboundQueue = createQueue();
