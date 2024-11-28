@@ -38,7 +38,7 @@ typedef struct Packet {
 
 // Packet cache for retransmission
 // #define PACKET_CACHE_SIZE 16
-/// @deprecated The Packet Cache is being migrated to \ref main.c
+/// @deprecated The Packet Cache is being migrated to main.c
 // extern Packet* PacketCache[PACKET_CACHE_SIZE];
 // extern uint8_t rotator;
 
@@ -65,9 +65,9 @@ Packet* toPacket(char* s);
 /// @return Pointer to the resulting Packet
 Packet* byteToPacket(Byte* b);
 
-/// @brief Creates a Packet to be stored within the \ref PacketCache
+/// @brief Creates a Packet to be stored within the PacketCache
 /// @return Pointer to the resulting Packet, NULL if there is no available memory
-/// @deprecated The Packet Cache is being migrated to \ref main.c
+/// @deprecated The Packet Cache is being migrated to main.c
 // Packet* createCachedPacket(uint8_t* data, int length);
 
 /// @brief Inserts a Byte at the end of a Packet. This function ignores linked Bytes, so they should be handled appropriately.
