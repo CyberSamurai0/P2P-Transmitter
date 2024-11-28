@@ -3,7 +3,7 @@ var indexSectionsWithContent =
   0: "bcdfilmnprstv",
   1: "bp",
   2: "bmp",
-  3: "bcfmprst",
+  3: "bcfmpst",
   4: "filnprv",
   5: "bp",
   6: "dl"

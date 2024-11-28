@@ -90,10 +90,8 @@ $(function(){ initResizable(false); });
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">packet.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -109,12 +107,6 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPacket.html">Packet</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a51aa1ba729152a873c5882ee5fa44cb4" id="r_a51aa1ba729152a873c5882ee5fa44cb4"><td class="memItemLeft" align="right" valign="top"><a id="a51aa1ba729152a873c5882ee5fa44cb4" name="a51aa1ba729152a873c5882ee5fa44cb4"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>PACKET_CACHE_SIZE</b>&#160;&#160;&#160;16</td></tr>
-<tr class="separator:a51aa1ba729152a873c5882ee5fa44cb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -136,26 +128,17 @@ Functions</h2></td></tr>
 <tr class="memitem:a34cd9bbca9b4b909ae8776f0ca1cb8e0" id="r_a34cd9bbca9b4b909ae8776f0ca1cb8e0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPacket.html">Packet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a34cd9bbca9b4b909ae8776f0ca1cb8e0">createRetransmitPacket</a> (uint8_t identifier)</td></tr>
 <tr class="memdesc:a34cd9bbca9b4b909ae8776f0ca1cb8e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="structPacket.html">Packet</a> requesting that the peer retransmit the cached <a class="el" href="structPacket.html">Packet</a> with the specified identifier.  <br /></td></tr>
 <tr class="separator:a34cd9bbca9b4b909ae8776f0ca1cb8e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abfe73a4601ec5edc652004e1120d5582" id="r_abfe73a4601ec5edc652004e1120d5582"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPacket.html">Packet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abfe73a4601ec5edc652004e1120d5582">createCachedPacket</a> (uint8_t *data, int length)</td></tr>
-<tr class="memdesc:abfe73a4601ec5edc652004e1120d5582"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="structPacket.html">Packet</a> to be stored within the PacketCache.  <br /></td></tr>
-<tr class="separator:abfe73a4601ec5edc652004e1120d5582"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a67d3175291ac6a77e1a2fe4db47a31" id="r_a6a67d3175291ac6a77e1a2fe4db47a31"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPacket.html">Packet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a67d3175291ac6a77e1a2fe4db47a31">toPacket</a> (char *s)</td></tr>
+<tr class="memdesc:a6a67d3175291ac6a77e1a2fe4db47a31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a char* string to a <a class="el" href="structPacket.html">Packet</a> containing one <a class="el" href="structByte.html">Byte</a> per char.  <br /></td></tr>
+<tr class="separator:a6a67d3175291ac6a77e1a2fe4db47a31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4049fcbd0227f518ccec625cdb81b8f6" id="r_a4049fcbd0227f518ccec625cdb81b8f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPacket.html">Packet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4049fcbd0227f518ccec625cdb81b8f6">byteToPacket</a> (<a class="el" href="structByte.html">Byte</a> *b)</td></tr>
+<tr class="memdesc:a4049fcbd0227f518ccec625cdb81b8f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="structPacket.html">Packet</a> structure containing the provided <a class="el" href="structByte.html">Byte</a>.  <br /></td></tr>
+<tr class="separator:a4049fcbd0227f518ccec625cdb81b8f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f25556c1fb49946104a9f70a89e5403" id="r_a9f25556c1fb49946104a9f70a89e5403"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f25556c1fb49946104a9f70a89e5403">packetAppendByte</a> (<a class="el" href="structPacket.html">Packet</a> *p, <a class="el" href="structByte.html">Byte</a> *b)</td></tr>
-<tr class="memdesc:a9f25556c1fb49946104a9f70a89e5403"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a <a class="el" href="structByte.html">Byte</a> at the end of a <a class="el" href="structPacket.html">Packet</a>. This function ignores linked Bytes, so they should be handled appropriately.  <br /></td></tr>
+<tr class="memdesc:a9f25556c1fb49946104a9f70a89e5403"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="structPacket.html">Packet</a> to be stored within the PacketCache.  <br /></td></tr>
 <tr class="separator:a9f25556c1fb49946104a9f70a89e5403"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd5099d5d38ba5fcffa7b8118c8be76a" id="r_acd5099d5d38ba5fcffa7b8118c8be76a"><td class="memItemLeft" align="right" valign="top"><a id="acd5099d5d38ba5fcffa7b8118c8be76a" name="acd5099d5d38ba5fcffa7b8118c8be76a"></a>
-uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><b>packetToArray</b> (<a class="el" href="structPacket.html">Packet</a> *p)</td></tr>
-<tr class="separator:acd5099d5d38ba5fcffa7b8118c8be76a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa61ea233cd53547157f378b5f61687e8" id="r_aa61ea233cd53547157f378b5f61687e8"><td class="memItemLeft" align="right" valign="top"><a id="aa61ea233cd53547157f378b5f61687e8" name="aa61ea233cd53547157f378b5f61687e8"></a>
-<a class="el" href="structPacket.html">Packet</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>arrayToPacket</b> (uint8_t *data, int length)</td></tr>
-<tr class="separator:aa61ea233cd53547157f378b5f61687e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96a068e4fea793ec90fc06bf74bb0626" id="r_a96a068e4fea793ec90fc06bf74bb0626"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a96a068e4fea793ec90fc06bf74bb0626">sendPacket</a> (uint8_t *data, int length)</td></tr>
-<tr class="memdesc:a96a068e4fea793ec90fc06bf74bb0626"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sending and retransmitting.  <br /></td></tr>
-<tr class="separator:a96a068e4fea793ec90fc06bf74bb0626"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26067e73c64d107cdb290b43cdf08099" id="r_a26067e73c64d107cdb290b43cdf08099"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a26067e73c64d107cdb290b43cdf08099">retransmit</a> (uint8_t id)</td></tr>
-<tr class="memdesc:a26067e73c64d107cdb290b43cdf08099"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sending and retransmitting.  <br /></td></tr>
-<tr class="separator:a26067e73c64d107cdb290b43cdf08099"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74dd24c5bb4154d6f77979d50c1c48f2" id="r_a74dd24c5bb4154d6f77979d50c1c48f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a74dd24c5bb4154d6f77979d50c1c48f2">printByte</a> (<a class="el" href="structByte.html">Byte</a> *b)</td></tr>
-<tr class="memdesc:a74dd24c5bb4154d6f77979d50c1c48f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the detailed contents of a <a class="el" href="structByte.html">Byte</a> struct instance.  <br /></td></tr>
+<tr class="memdesc:a74dd24c5bb4154d6f77979d50c1c48f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sending and retransmitting.  <br /></td></tr>
 <tr class="separator:a74dd24c5bb4154d6f77979d50c1c48f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac261d167aa609920fc82e3a227d742ad" id="r_ac261d167aa609920fc82e3a227d742ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac261d167aa609920fc82e3a227d742ad">printPacket</a> (<a class="el" href="structPacket.html">Packet</a> *p)</td></tr>
 <tr class="memdesc:ac261d167aa609920fc82e3a227d742ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display the bytes contained within the packet and their ASCII representation.  <br /></td></tr>
@@ -163,39 +146,31 @@ uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><b>packetToArray</b
 <tr class="memitem:a08e3635cca52ded7ccbe4905966dcf0f" id="r_a08e3635cca52ded7ccbe4905966dcf0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a08e3635cca52ded7ccbe4905966dcf0f">freePacket</a> (<a class="el" href="structPacket.html">Packet</a> *p)</td></tr>
 <tr class="memdesc:a08e3635cca52ded7ccbe4905966dcf0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free the memory reserved for the packet and all contained bytes.  <br /></td></tr>
 <tr class="separator:a08e3635cca52ded7ccbe4905966dcf0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a5833db14ff8ed5e0126756bea523c232" id="r_a5833db14ff8ed5e0126756bea523c232"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPacket.html">Packet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5833db14ff8ed5e0126756bea523c232">PacketCache</a> [PACKET_CACHE_SIZE]</td></tr>
-<tr class="separator:a5833db14ff8ed5e0126756bea523c232"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abca3b43faf5b122babbccae3fa4294de" id="r_abca3b43faf5b122babbccae3fa4294de"><td class="memItemLeft" align="right" valign="top"><a id="abca3b43faf5b122babbccae3fa4294de" name="abca3b43faf5b122babbccae3fa4294de"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>rotator</b></td></tr>
-<tr class="separator:abca3b43faf5b122babbccae3fa4294de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="abfe73a4601ec5edc652004e1120d5582" name="abfe73a4601ec5edc652004e1120d5582"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abfe73a4601ec5edc652004e1120d5582">&#9670;&#160;</a></span>createCachedPacket()</h2>
+<a id="a4049fcbd0227f518ccec625cdb81b8f6" name="a4049fcbd0227f518ccec625cdb81b8f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4049fcbd0227f518ccec625cdb81b8f6">&#9670;&#160;</a></span>byteToPacket()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structPacket.html">Packet</a> * createCachedPacket </td>
+          <td class="memname"><a class="el" href="structPacket.html">Packet</a> * byteToPacket </td>
           <td>(</td>
-          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="structByte.html">Byte</a> *</td>          <td class="paramname"><span class="paramname"><em>b</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>length</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a <a class="el" href="structPacket.html">Packet</a> to be stored within the PacketCache. </p>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000003">Deprecated</a></b></dt><dd>The <a class="el" href="structPacket.html">Packet</a> Cache is being migrated to <a class="el" href="main_8c.html">main.c</a> </dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>Pointer to the resulting <a class="el" href="structPacket.html">Packet</a>, NULL if there is no available memory</dd></dl>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated</a></b></dt><dd></dd></dl>
+<p>Creates a <a class="el" href="structPacket.html">Packet</a> structure containing the provided <a class="el" href="structByte.html">Byte</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">b</td><td>Pointer to the <a class="el" href="structByte.html">Byte</a> to be wrapped </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the resulting <a class="el" href="structPacket.html">Packet</a> </dd></dl>
 
 </div>
 </div>
@@ -291,14 +266,26 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>rotator</b></td></
       </table>
 </div><div class="memdoc">
 
-<p>Inserts a <a class="el" href="structByte.html">Byte</a> at the end of a <a class="el" href="structPacket.html">Packet</a>. This function ignores linked Bytes, so they should be handled appropriately. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Creates a <a class="el" href="structPacket.html">Packet</a> to be stored within the PacketCache. </p>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the resulting <a class="el" href="structPacket.html">Packet</a>, NULL if there is no available memory </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000003">Deprecated</a></b></dt><dd>The <a class="el" href="structPacket.html">Packet</a> Cache is being migrated to <a class="el" href="main_8c.html">main.c</a> </dd></dl>
+<p>Inserts a <a class="el" href="structByte.html">Byte</a> at the end of a <a class="el" href="structPacket.html">Packet</a>. This function ignores linked Bytes, so they should be handled appropriately. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">p</td><td>Pointer to the <a class="el" href="structPacket.html">Packet</a> to be modified </td></tr>
-    <tr><td class="paramname">b</td><td>Pointer to the <a class="el" href="structByte.html">Byte</a> to be appended. The addresses stored within .previous and .next will be overwritten. </td></tr>
+    <tr><td class="paramname">b</td><td>Pointer to the <a class="el" href="structByte.html">Byte</a> to be appended. The addresses stored within .previous and .next will be overwritten.</td></tr>
   </table>
   </dd>
 </dl>
+<p>Creates a <a class="el" href="structPacket.html">Packet</a> to be stored within the PacketCache.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>Pointer to the <a class="el" href="structPacket.html">Packet</a> to be modified </td></tr>
+    <tr><td class="paramname">b</td><td>Pointer to the <a class="el" href="structByte.html">Byte</a> to be appended. The addresses stored within .previous and .next will be overwritten.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Creates a <a class="el" href="structPacket.html">Packet</a> to be stored within the PacketCache.</p>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated</a></b></dt><dd></dd></dl>
 
 </div>
 </div>
@@ -317,7 +304,16 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>rotator</b></td></
       </table>
 </div><div class="memdoc">
 
-<p>Print the detailed contents of a <a class="el" href="structByte.html">Byte</a> struct instance. </p>
+<p>Sending and retransmitting. </p>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000004">Deprecated</a></b></dt><dd><a class="el" href="structPacket.html">Packet</a> transmission should be implemented in uart.c </dd></dl>
+<p>Sending and retransmitting </p><dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000005">Deprecated</a></b></dt><dd><a class="el" href="structPacket.html">Packet</a> transmission should be implemented in uart.c </dd></dl>
+<p>Print the detailed contents of a <a class="el" href="structByte.html">Byte</a> struct instance </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">b</td><td>Pointer to the <a class="el" href="structByte.html">Byte</a> to be printed</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Sending and retransmitting.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">b</td><td>Pointer to the <a class="el" href="structByte.html">Byte</a> to be printed </td></tr>
@@ -353,50 +349,6 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>rotator</b></td></
 
 </div>
 </div>
-<a id="a26067e73c64d107cdb290b43cdf08099" name="a26067e73c64d107cdb290b43cdf08099"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26067e73c64d107cdb290b43cdf08099">&#9670;&#160;</a></span>retransmit()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void retransmit </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>id</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sending and retransmitting. </p>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000005">Deprecated</a></b></dt><dd><a class="el" href="structPacket.html">Packet</a> transmission should be implemented in uart.c </dd></dl>
-
-</div>
-</div>
-<a id="a96a068e4fea793ec90fc06bf74bb0626" name="a96a068e4fea793ec90fc06bf74bb0626"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96a068e4fea793ec90fc06bf74bb0626">&#9670;&#160;</a></span>sendPacket()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void sendPacket </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>length</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sending and retransmitting. </p>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000004">Deprecated</a></b></dt><dd><a class="el" href="structPacket.html">Packet</a> transmission should be implemented in uart.c </dd></dl>
-
-</div>
-</div>
 <a id="abb06346db5ec58abb81153418fe1d846" name="abb06346db5ec58abb81153418fe1d846"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abb06346db5ec58abb81153418fe1d846">&#9670;&#160;</a></span>toByte()</h2>
 
@@ -413,6 +365,14 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>rotator</b></td></
 </div><div class="memdoc">
 
 <p>Converts a character to a <a class="el" href="structByte.html">Byte</a> struct (linked list node) </p>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000002">Deprecated</a></b></dt><dd>The <a class="el" href="structPacket.html">Packet</a> Cache is being migrated to <a class="el" href="main_8c.html">main.c</a> </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>8-bit char to be used as the <a class="el" href="structByte.html">Byte</a>'s value </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the resulting <a class="el" href="structByte.html">Byte</a>, NULL if there is no available memory</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">c</td><td>8-bit char to be used as the <a class="el" href="structByte.html">Byte</a>'s value </td></tr>
@@ -423,27 +383,29 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>rotator</b></td></
 
 </div>
 </div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="a5833db14ff8ed5e0126756bea523c232" name="a5833db14ff8ed5e0126756bea523c232"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5833db14ff8ed5e0126756bea523c232">&#9670;&#160;</a></span>PacketCache</h2>
+<a id="a6a67d3175291ac6a77e1a2fe4db47a31" name="a6a67d3175291ac6a77e1a2fe4db47a31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a67d3175291ac6a77e1a2fe4db47a31">&#9670;&#160;</a></span>toPacket()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structPacket.html">Packet</a>* PacketCache[PACKET_CACHE_SIZE]</td>
+          <td class="memname"><a class="el" href="structPacket.html">Packet</a> * toPacket </td>
+          <td>(</td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>s</em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000002">Deprecated</a></b></dt><dd>The <a class="el" href="structPacket.html">Packet</a> Cache is being migrated to <a class="el" href="main_8c.html">main.c</a> </dd></dl>
+
+<p>Converts a char* string to a <a class="el" href="structPacket.html">Packet</a> containing one <a class="el" href="structByte.html">Byte</a> per char. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s</td><td>The char* string to be converted to a <a class="el" href="structByte.html">Byte</a> sequence </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the resulting <a class="el" href="structPacket.html">Packet</a>, NULL if there is no available memory </dd></dl>
 
 </div>
 </div>
