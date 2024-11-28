@@ -35,6 +35,27 @@
 
 #define PACKET_CACHE_SIZE 8
 
+/// @brief Caches the most recently transmitted packets to support retransmission
+Packet* PacketCache[PACKET_CACHE_SIZE] = {NULL};
+/// @brief The current usable index of \ref PacketCache. This should reset to 0 if it exceeds the length of \ref PacketCache.
+int PacketCacheIndex = 0;
+
+/// @brief Add a Packet to PacketCache and set its identifier to its index within the cache
+/// @param p Pointer to the Packet to be cached
+void cachePacket(Packet* p) {
+	// Free the cached Packet that has the same identifier
+	if (PacketCache[PacketCacheIndex]) freePacket(PacketCache[PacketCacheIndex]);
+
+    // Set the cache item at the provided index to the Packet* p
+    PacketCache[PacketCacheIndex] = p;
+
+	// Set the Packet identifier to the assigned cache index
+	p->identifier = PacketCacheIndex;
+
+    PacketCacheIndex++; // Increment the index
+	PacketCacheIndex %= PACKET_CACHE_SIZE; // Reset to zero if we run out of bits
+}
+
 /// @brief Entrypoint function for the program
 /// @return Status code
 int main() {
@@ -57,23 +78,18 @@ int main() {
 	}
 
 	int LED_ON = 0;
-	
-	/// @brief Caches the most recently transmitted packets to support retransmission
-	Packet* PacketCache[PACKET_CACHE_SIZE] = {NULL};
-	/// @brief The current usable index of \ref PacketCache. This should reset to 0 if it exceeds the length of \ref PacketCache.
-	int rotator = 0;
 
 	/// @brief Store created Packets until they can be transmitted in sequence
 	PacketQueue* outboundQueue = createQueue();
 
 
-	Packet* m = toPacket("The quick brown fox jumps over the lazy dog.");
+	// Packet* m = toPacket("The quick brown fox jumps over the lazy dog.");
 
 	while (true) {
-		if (USE_ONBOARD_LED) {
-			LED_ON = !LED_ON;
-			setOnboardLED(LED_ON); // Toggle LED on each input
-		}
+		// if (USE_ONBOARD_LED) {
+		// 	LED_ON = !LED_ON;
+		// 	setOnboardLED(LED_ON); // Toggle LED on each input
+		// }
 
 		printf("\nTesting Scan: ");
 		char x = 0; // Reset on every iteration
@@ -81,6 +97,8 @@ int main() {
 			scanf("%c", &x); // Scan char by char
 			printf("%c", x); // Print char
 			Packet* m2 = byteToPacket(toByte(x)); // Create a packet for each character (like SSH)
+			cachePacket(m2);
+			sendPacket(m2, TX_PIN);
 			PacketQueueNode* n = createQueueNode(m2);
 			pushQueue(outboundQueue, n);
 			// printPacket(m2);
@@ -100,7 +118,7 @@ int main() {
 		
 		printf("\n\nHello!\n");
 
-		sendPacket(m, TX_PIN);
+		// sendPacket(m, TX_PIN);
 		
 		// printf("Packet[%ld] (%p)\n", sizeof(*m), m);
 		// printf("\tLength: %d\n", m->length);
@@ -116,7 +134,7 @@ int main() {
 
 	}
 
-	freePacket(m);
+	// freePacket(m);
 
 	// while (true) {
 	// 	sleep_ms(1000);
