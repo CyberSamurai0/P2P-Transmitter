@@ -97,12 +97,13 @@ Public Attributes</h2></td></tr>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>length</b></td></tr>
 <tr class="memdesc:a6072404fc2b01bcd731fcb515d2102b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of contained Bytes within the <a class="el" href="structPacket.html">Packet</a>. This value is not reliable and must be updated in any custom <a class="el" href="structPacket.html">Packet</a> implementations. <br /></td></tr>
 <tr class="separator:a6072404fc2b01bcd731fcb515d2102b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb6d100cc6a092b52f31bd0826b7b7ca" id="r_abb6d100cc6a092b52f31bd0826b7b7ca"><td class="memItemLeft" align="right" valign="top"><a id="abb6d100cc6a092b52f31bd0826b7b7ca" name="abb6d100cc6a092b52f31bd0826b7b7ca"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>flags</b></td></tr>
-<tr class="memdesc:abb6d100cc6a092b52f31bd0826b7b7ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmission flags. <br /></td></tr>
-<tr class="separator:abb6d100cc6a092b52f31bd0826b7b7ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b90fafd372a6ac2720015b8a4a07f69" id="r_a5b90fafd372a6ac2720015b8a4a07f69"><td class="memItemLeft" align="right" valign="top"><a id="a5b90fafd372a6ac2720015b8a4a07f69" name="a5b90fafd372a6ac2720015b8a4a07f69"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>retransmit</b></td></tr>
+<tr class="memdesc:a5b90fafd372a6ac2720015b8a4a07f69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boolean used to request that the peer retransmit the specified <a class="el" href="structPacket.html">Packet</a> Identifier. <br /></td></tr>
+<tr class="separator:a5b90fafd372a6ac2720015b8a4a07f69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a684c8e68c0f4c01885fe80a034e85f5f" id="r_a684c8e68c0f4c01885fe80a034e85f5f"><td class="memItemLeft" align="right" valign="top"><a id="a684c8e68c0f4c01885fe80a034e85f5f" name="a684c8e68c0f4c01885fe80a034e85f5f"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>identifier</b></td></tr>
+<tr class="memdesc:a684c8e68c0f4c01885fe80a034e85f5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">3-bit <a class="el" href="structPacket.html">Packet</a> Identifier used to distinguish packets in retransmissino requests <br /></td></tr>
 <tr class="separator:a684c8e68c0f4c01885fe80a034e85f5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae578741f2ba4dbeefa6b822d9a152078" id="r_ae578741f2ba4dbeefa6b822d9a152078"><td class="memItemLeft" align="right" valign="top"><a id="ae578741f2ba4dbeefa6b822d9a152078" name="ae578741f2ba4dbeefa6b822d9a152078"></a>
 <a class="el" href="structByte.html">Byte</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>firstByte</b></td></tr>
@@ -112,10 +113,10 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>identifier</b></td
 <a class="el" href="structByte.html">Byte</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>lastByte</b></td></tr>
 <tr class="memdesc:a47010c69c1c75be82e03f29df244d1c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The last <a class="el" href="structByte.html">Byte</a> contained within the Linked List, used for reverse traversal. <br /></td></tr>
 <tr class="separator:a47010c69c1c75be82e03f29df244d1c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a270fc490182fbf3d2805d4eefbdcaf0d" id="r_a270fc490182fbf3d2805d4eefbdcaf0d"><td class="memItemLeft" align="right" valign="top"><a id="a270fc490182fbf3d2805d4eefbdcaf0d" name="a270fc490182fbf3d2805d4eefbdcaf0d"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>parity</b></td></tr>
-<tr class="memdesc:a270fc490182fbf3d2805d4eefbdcaf0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boolean used for even parity implementation. <br /></td></tr>
-<tr class="separator:a270fc490182fbf3d2805d4eefbdcaf0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fb308f5546baa51c580ae2ed307ab6d" id="r_a0fb308f5546baa51c580ae2ed307ab6d"><td class="memItemLeft" align="right" valign="top"><a id="a0fb308f5546baa51c580ae2ed307ab6d" name="a0fb308f5546baa51c580ae2ed307ab6d"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>parity</b></td></tr>
+<tr class="memdesc:a0fb308f5546baa51c580ae2ed307ab6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boolean used for even parity implementation. <br /></td></tr>
+<tr class="separator:a0fb308f5546baa51c580ae2ed307ab6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/<a class="el" href="packet_8h_source.html">packet.h</a></li>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['next_0',['next',['../structbyte.html#ac61c9a0bd1d790e2eea3f932e8da7381',1,'byte']]]
+  ['identifier_0',['identifier',['../structPacket.html#a684c8e68c0f4c01885fe80a034e85f5f',1,'Packet']]]
 ];

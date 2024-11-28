@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['next_0',['next',['../structbyte.html#ac61c9a0bd1d790e2eea3f932e8da7381',1,'byte']]]
+  ['lastbyte_0',['lastByte',['../structpacket.html#aa32dc254826afcc1e82594565a7ac04e',1,'packet::lastByte'],['../structPacket.html#a47010c69c1c75be82e03f29df244d1c0',1,'Packet::lastByte']]],
+  ['length_1',['length',['../structpacket.html#a146f8dec4029aa113a1bd6996a83fadb',1,'packet::length'],['../structPacket.html#a6072404fc2b01bcd731fcb515d2102b7',1,'Packet::length']]]
 ];

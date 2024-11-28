@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['value_0',['value',['../structbyte.html#abc9d4fc007f2dc8243556b8dc891e233',1,'byte']]]
+  ['next_0',['next',['../structbyte.html#ac61c9a0bd1d790e2eea3f932e8da7381',1,'byte']]]
 ];

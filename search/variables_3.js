@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['parity_0',['parity',['../structPacket.html#a270fc490182fbf3d2805d4eefbdcaf0d',1,'Packet']]],
-  ['previous_1',['previous',['../structbyte.html#aba65a52b16a6a18042020b7e5af8df10',1,'byte']]]
+  ['next_0',['next',['../structbyte.html#ac61c9a0bd1d790e2eea3f932e8da7381',1,'byte']]]
 ];

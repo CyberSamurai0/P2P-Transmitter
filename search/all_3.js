@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['lastbyte_0',['lastByte',['../structpacket.html#aa32dc254826afcc1e82594565a7ac04e',1,'packet::lastByte'],['../structPacket.html#a47010c69c1c75be82e03f29df244d1c0',1,'Packet::lastByte']]],
-  ['length_1',['length',['../structpacket.html#a146f8dec4029aa113a1bd6996a83fadb',1,'packet::length'],['../structPacket.html#a6072404fc2b01bcd731fcb515d2102b7',1,'Packet::length']]]
+  ['firstbyte_0',['firstByte',['../structpacket.html#aea75dfaad4f08bfe2d4f93978d23bdfc',1,'packet::firstByte'],['../structPacket.html#ae578741f2ba4dbeefa6b822d9a152078',1,'Packet::firstByte']]],
+  ['freepacket_1',['freePacket',['../bytes_8h.html#a08e3635cca52ded7ccbe4905966dcf0f',1,'freePacket(Packet *p):&#160;bytes.c'],['../packet_8h.html#a08e3635cca52ded7ccbe4905966dcf0f',1,'freePacket(Packet *p):&#160;bytes.c']]]
 ];
