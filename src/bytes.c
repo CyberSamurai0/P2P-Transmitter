@@ -102,7 +102,6 @@ void printByte(Byte* b) {
 	printf("}\n");
 }
 
-
 void printPacket(Packet* p) {
 	printf("Packet[%d]\n", p->length);
 	Byte* b = p->firstByte;

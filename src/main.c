@@ -1,4 +1,6 @@
-/*
+/**
+ * @file
+ * @brief Program entrypoint and synchronization controller
  * Point-to-Point Laser Diode Transmitter
  * https://github.com/CyberSamurai0/P2P-Transmitter
  */
@@ -11,7 +13,6 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
-
 
 // If the Pi Pico module used does not have an onboard LED, set this to 0.
 #define USE_ONBOARD_LED 1
@@ -53,14 +54,14 @@ int main() {
 
 	int LED_ON = 0;
 
+	/// @brief Caches the most recently transmitted packets to support retransmission
+	Packet* PacketCache[8] = {NULL};
+
+	/// @brief Store created Packets until they can be transmitted in sequence
+	PacketQueue* outboundQueue = createQueue();
+
+
 	Packet* m = toPacket("The quick brown fox jumps over the lazy dog.");
-
-	PacketQueue* queue = createQueue();
-
-
-	// while (!stdio_usb_connected) {
-	// 	sleep_ms(50);
-	// }
 
 	while (true) {
 		if (USE_ONBOARD_LED) {
@@ -75,7 +76,7 @@ int main() {
 			printf("%c", x); // Print char
 			Packet* m2 = byteToPacket(toByte(x)); // Create a packet for each character (like SSH)
 			PacketQueueNode* n = createQueueNode(m2);
-			pushQueue(queue, n);
+			pushQueue(outboundQueue, n);
 			// printPacket(m2);
 			freePacket(m2);
 		}

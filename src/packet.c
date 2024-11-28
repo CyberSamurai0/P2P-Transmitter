@@ -32,6 +32,13 @@ Packet* createPacket() {
     return p;
 }
 
+// Create a packet with no Bytes that will
+Packet* createRetransmitPacket(uint8_t identifier) {
+    Packet* p = createPacket();
+    p->retransmit = 1;
+    p->identifier = identifier;
+}
+
 // Create a Packet from an array and cache it
 Packet* createCachedPacket(uint8_t* data, int length) {
     Packet* p = arrayToPacket(data, length);
@@ -40,6 +47,36 @@ Packet* createCachedPacket(uint8_t* data, int length) {
     PacketCache[rotator] = p; // Cache the packet
     rotator = (rotator + 1) % PACKET_CACHE_SIZE;
     return p;
+}
+
+void printByte(Byte* b) {
+	printf("\nByte[%ld] (%p) {\n", sizeof(*b), b);
+    printf("\tValue: %c\n", b->value);
+    printf("\tPrev: %p\n", b->previous);
+    printf("\tNext: %p\n", b->next);
+	printf("}\n");
+}
+
+void printPacket(Packet* p) {
+	printf("Packet[%d]\n", p->length);
+	Byte* b = p->firstByte;
+	while (b) {
+		// Convert to binary byte
+		printf("%c", b->value & 128 ? '1' : '0');
+		printf("%c", b->value & 64 ? '1' : '0');
+		printf("%c", b->value & 32 ? '1' : '0');
+		printf("%c", b->value & 16 ? '1' : '0');
+		printf("%c", b->value & 8 ? '1' : '0');
+		printf("%c", b->value & 4 ? '1' : '0');
+		printf("%c", b->value & 2 ? '1' : '0');
+		printf("%c", b->value & 1 ? '1' : '0');
+
+		// Display character value
+		printf(" %c\n", (char) b->value);
+
+		// Repeat for next
+		b = b->next;
+	}
 }
 
 // Free a Packet and its bytes
