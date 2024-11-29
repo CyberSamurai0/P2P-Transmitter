@@ -12,8 +12,8 @@
 // Byte struct representing a single byte in the linked list
 typedef struct Byte {
     uint8_t value;
-    struct byte* next;
-    struct byte* previous;
+    struct Byte* next;
+    struct Byte* previous;
 } Byte;
 
 // Packet struct representing a sequence of bytes
@@ -21,11 +21,9 @@ typedef struct Packet {
 	/// @brief Number of contained Bytes within the Packet. This value is not reliable and must be updated in any custom Packet implementations.
     int length;
 
-    /// @brief Boolean used to request that the peer retransmit the specified Packet Identifier
-    bool retransmit;
-
-    /// @brief 3-bit Packet Identifier used to distinguish packets in retransmissino requests
-    uint8_t identifier;
+    /// @brief 4-bit Packet header
+    /// @details Most significant bit is a Boolean used to request that the peer retransmit the specified Packet Identifier. The three remaining bits are the Packet Identifier.
+    uint8_t header;
 
 	/// @brief The first Byte contained within the Linked List, used for forward traversal
     Byte* firstByte;
@@ -35,12 +33,6 @@ typedef struct Packet {
     /// @brief Boolean used for even parity implementation
     bool parity;
 } Packet;
-
-// Packet cache for retransmission
-// #define PACKET_CACHE_SIZE 16
-/// @deprecated The Packet Cache is being migrated to main.c
-// extern Packet* PacketCache[PACKET_CACHE_SIZE];
-// extern uint8_t rotator;
 
 /// @brief Converts a character to a Byte struct (linked list node)
 /// @param c 8-bit char to be used as the Byte's value 
@@ -64,6 +56,21 @@ Packet* toPacket(char* s);
 /// @param b Pointer to the Byte to be wrapped
 /// @return Pointer to the resulting Packet
 Packet* byteToPacket(Byte* b);
+
+/// @brief Extracts the Packet Identifier from the header field
+/// @param p Pointer to the Packet to be examined
+/// @return The value of the Packet Identifier (ID) bits
+uint8_t getPacketID(Packet* p);
+
+/// @brief Checks the header field to determine if the specified Packet ID should be retransmitted
+/// @param p Pointer to the Packet to be examined
+/// @return The value of the Retransmission (RT) bit
+bool getPacketRT(Packet* p);
+
+/// @brief Sets the Packet Identifier within the header field
+/// @param p Pointer to the Packet to be modified
+/// @param id The 3-bit Packet ID value
+void setPacketID(Packet* p, uint8_t id);
 
 /// @brief Creates a Packet to be stored within the PacketCache
 /// @return Pointer to the resulting Packet, NULL if there is no available memory

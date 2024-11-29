@@ -25,7 +25,7 @@ Packet* createPacket() {
         return NULL;
     }
     p->length = 0;
-    p->retransmit = 0; // Default to False
+	p->header = 0b0000;
     p->firstByte = NULL;
     p->lastByte = NULL;
     return p;
@@ -34,8 +34,8 @@ Packet* createPacket() {
 // Create a packet with no Bytes that will
 Packet* createRetransmitPacket(uint8_t identifier) {
     Packet* p = createPacket();
-    p->retransmit = 1;
-    p->identifier = identifier;
+	p->header = 0b1000 | identifier; // Set MSB to 1 and set 3-bit identifier
+	return p;
 }
 
 Packet* toPacket(char* s) {
@@ -64,11 +64,7 @@ Packet* toPacket(char* s) {
 }
 
 Packet* byteToPacket(Byte* b) {
-	Packet* p = malloc(sizeof(Packet));
-	if (DEBUG_MODE) printf("Allocated Packet [%p]\n", p);
-	if (p == NULL) {
-		printf("\nPacket malloc failed\n");
-	}
+	Packet* p = createPacket();
 
 	p->length = 1; // TODO this is not always true, the provided Byte* could have .next set!!!
 	p->firstByte = b;
@@ -77,16 +73,19 @@ Packet* byteToPacket(Byte* b) {
 	return p;
 }
 
-// Create a Packet from an array and cache it
-/// @deprecated
-// Packet* createCachedPacket(uint8_t* data, int length) {
-//     Packet* p = arrayToPacket(data, length);
-//     if (!p) return NULL;
-//     p->identifier = rotator;  // Assign cyclic identifier
-//     PacketCache[rotator] = p; // Cache the packet
-//     rotator = (rotator + 1) % PACKET_CACHE_SIZE;
-//     return p;
-// }
+uint8_t getPacketID(Packet* p) {
+	return p->header & 0b0111; // Return value of 3 least significant bits
+	
+}
+
+bool getPacketRT(Packet* p) {
+	return p->header & 0b1000; // Return value of most significant bit
+}
+
+void setPacketID(Packet* p, uint8_t id) {
+	// Preserve RT, overwrite ID
+	p->header = (p->header & 0b1000) | (0b0111 & id);
+}
 
 void packetAppendByte(Packet* p, Byte* b) {
 	// Clear existing pointers within the Byte, and pray that the caller handled them appropriately
@@ -114,7 +113,8 @@ void printByte(Byte* b) {
 }
 
 void printPacket(Packet* p) {
-	printf("Packet[%d]\n", p->length);
+	printf("Packet[%d] (%p) - RT: %d, ID: %d\n", p->length, p, getPacketRT(p), getPacketID(p));
+	if (!p) return;
 	Byte* b = p->firstByte;
 	while (b) {
 		// Convert to binary byte
