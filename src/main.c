@@ -41,6 +41,7 @@ Packet* PacketCache[PACKET_CACHE_SIZE] = {NULL};
 int PacketCacheIndex = 0;
 
 /// @brief Add a Packet to PacketCache and set its identifier to its index within the cache
+/// @warning Packets should not be cached until they have been dequeued (transmitted), otherwise we may free them too early
 /// @param p Pointer to the Packet to be cached
 void cachePacket(Packet* p) {
 	// Free the cached Packet that has the same identifier
@@ -50,7 +51,7 @@ void cachePacket(Packet* p) {
     PacketCache[PacketCacheIndex] = p;
 
 	// Set the Packet identifier to the assigned cache index
-	p->identifier = PacketCacheIndex;
+	setPacketID(p, PacketCacheIndex);
 
     PacketCacheIndex++; // Increment the index
 	PacketCacheIndex %= PACKET_CACHE_SIZE; // Reset to zero if we run out of bits
@@ -93,20 +94,27 @@ int main() {
 
 		printf("\nTesting Scan: ");
 		char x = 0; // Reset on every iteration
-		while (x != '\n' && x != '\r') {
+		while (x != '\n' && x != '\r' && x != 13) {
 			scanf("%c", &x); // Scan char by char
-			printf("%c", x); // Print char
+			printf("%c", x); // Echo the provided character
+			if (x == '\n' || x == '\r') break; // REMOVE THIS LATER, WE WANT TO IMMEDIATELY SEND ALL DATA ANYWAY
 			Packet* m2 = byteToPacket(toByte(x)); // Create a packet for each character (like SSH)
+			m2->header = 0b0000;
 			cachePacket(m2);
 			sendPacket(m2, TX_PIN);
 			PacketQueueNode* n = createQueueNode(m2);
 			pushQueue(outboundQueue, n);
 			// printPacket(m2);
-			freePacket(m2);
 		}
+
+		printf("\nQUEUE CONTENTS:\n");
 		// TODO manually collect string input to be added to queue
 
-		printf("\r\nYEEHAW\n");
+		printPacketQueue(outboundQueue);
+		// PacketQueueNode* n = popQueue(outboundQueue);
+		// sendPacket(n->value, TX_PIN);
+
+
 		// PRINT THE QUEUE HERE!!!
 	}
 
