@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['retransmit_0',['retransmit',['../structPacket.html#a5b90fafd372a6ac2720015b8a4a07f69',1,'Packet']]]
+  ['value_0',['value',['../structbyte.html#abc9d4fc007f2dc8243556b8dc891e233',1,'byte']]]
 ];

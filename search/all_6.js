@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['main_0',['main',['../main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main.c']]],
-  ['main_2ec_1',['main.c',['../main_8c.html',1,'']]]
+  ['lastbyte_0',['lastByte',['../structpacket.html#aa32dc254826afcc1e82594565a7ac04e',1,'packet::lastByte'],['../structPacket.html#a47010c69c1c75be82e03f29df244d1c0',1,'Packet::lastByte']]],
+  ['length_1',['length',['../structpacket.html#a146f8dec4029aa113a1bd6996a83fadb',1,'packet::length'],['../structPacket.html#a6072404fc2b01bcd731fcb515d2102b7',1,'Packet::length']]],
+  ['list_2',['Deprecated List',['../deprecated.html',1,'']]]
 ];

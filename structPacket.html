@@ -97,14 +97,9 @@ Public Attributes</h2></td></tr>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>length</b></td></tr>
 <tr class="memdesc:a6072404fc2b01bcd731fcb515d2102b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of contained Bytes within the <a class="el" href="structPacket.html">Packet</a>. This value is not reliable and must be updated in any custom <a class="el" href="structPacket.html">Packet</a> implementations. <br /></td></tr>
 <tr class="separator:a6072404fc2b01bcd731fcb515d2102b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b90fafd372a6ac2720015b8a4a07f69" id="r_a5b90fafd372a6ac2720015b8a4a07f69"><td class="memItemLeft" align="right" valign="top"><a id="a5b90fafd372a6ac2720015b8a4a07f69" name="a5b90fafd372a6ac2720015b8a4a07f69"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>retransmit</b></td></tr>
-<tr class="memdesc:a5b90fafd372a6ac2720015b8a4a07f69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boolean used to request that the peer retransmit the specified <a class="el" href="structPacket.html">Packet</a> Identifier. <br /></td></tr>
-<tr class="separator:a5b90fafd372a6ac2720015b8a4a07f69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a684c8e68c0f4c01885fe80a034e85f5f" id="r_a684c8e68c0f4c01885fe80a034e85f5f"><td class="memItemLeft" align="right" valign="top"><a id="a684c8e68c0f4c01885fe80a034e85f5f" name="a684c8e68c0f4c01885fe80a034e85f5f"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>identifier</b></td></tr>
-<tr class="memdesc:a684c8e68c0f4c01885fe80a034e85f5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">3-bit <a class="el" href="structPacket.html">Packet</a> Identifier used to distinguish packets in retransmissino requests <br /></td></tr>
-<tr class="separator:a684c8e68c0f4c01885fe80a034e85f5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a712bab55f540b47b3cc27cf9257d4d75" id="r_a712bab55f540b47b3cc27cf9257d4d75"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a712bab55f540b47b3cc27cf9257d4d75">header</a></td></tr>
+<tr class="memdesc:a712bab55f540b47b3cc27cf9257d4d75"><td class="mdescLeft">&#160;</td><td class="mdescRight">4-bit <a class="el" href="structPacket.html">Packet</a> header  <br /></td></tr>
+<tr class="separator:a712bab55f540b47b3cc27cf9257d4d75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae578741f2ba4dbeefa6b822d9a152078" id="r_ae578741f2ba4dbeefa6b822d9a152078"><td class="memItemLeft" align="right" valign="top"><a id="ae578741f2ba4dbeefa6b822d9a152078" name="ae578741f2ba4dbeefa6b822d9a152078"></a>
 <a class="el" href="structByte.html">Byte</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>firstByte</b></td></tr>
 <tr class="memdesc:ae578741f2ba4dbeefa6b822d9a152078"><td class="mdescLeft">&#160;</td><td class="mdescRight">The first <a class="el" href="structByte.html">Byte</a> contained within the Linked List, used for forward traversal. <br /></td></tr>
@@ -118,6 +113,24 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>parity</b></td></tr>
 <tr class="memdesc:a0fb308f5546baa51c580ae2ed307ab6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boolean used for even parity implementation. <br /></td></tr>
 <tr class="separator:a0fb308f5546baa51c580ae2ed307ab6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a712bab55f540b47b3cc27cf9257d4d75" name="a712bab55f540b47b3cc27cf9257d4d75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a712bab55f540b47b3cc27cf9257d4d75">&#9670;&#160;</a></span>header</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Packet::header</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>4-bit <a class="el" href="structPacket.html">Packet</a> header </p>
+<p>Most significant bit is a Boolean used to request that the peer retransmit the specified <a class="el" href="structPacket.html">Packet</a> Identifier. The three remaining bits are the <a class="el" href="structPacket.html">Packet</a> Identifier. </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/<a class="el" href="packet_8h_source.html">packet.h</a></li>
 </ul>
