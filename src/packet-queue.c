@@ -64,3 +64,12 @@ void freePacketQueue(PacketQueue* q) {
     }
     free(q); // Free the queue itself
 }
+
+void printPacketQueue(PacketQueue* q) {
+    PacketQueueNode* n = q->first;
+    if (!n) printf("Packet Queue is empty\n");
+    while (n) {
+        printPacket(n->value);
+        n = n->next;
+    }
+}

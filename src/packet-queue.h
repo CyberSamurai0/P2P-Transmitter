@@ -34,4 +34,7 @@ void freePacketQueueNode(PacketQueueNode* n);
 // Frees all contained PacketQueueNodes, Packets, and itself
 void freePacketQueue(PacketQueue* q);
 
+// Prints each packet contained within the Queue
+void printPacketQueue(PacketQueue* q);
+
 #endif //P2P_TRANSMITTER_PACKET_QUEUE_H
