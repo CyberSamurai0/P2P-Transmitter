@@ -28,6 +28,7 @@ Packet* createPacket() {
 	p->header = 0b0000;
     p->firstByte = NULL;
     p->lastByte = NULL;
+	p->parity = 0;
     return p;
 }
 
