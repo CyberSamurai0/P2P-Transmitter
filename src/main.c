@@ -14,7 +14,8 @@
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
 
-// If the Pi Pico module used does not have an onboard LED, set this to 0.
+/// @brief If the Pi Pico module used does not have an onboard LED, set this to 0.
+/// @todo Adjust configuration based on your own hardware!
 #define USE_ONBOARD_LED 1
 
 #if USE_ONBOARD_LED == 1
@@ -32,6 +33,8 @@
 
 #define TX_PIN 0
 #define RX_PIN 1
+
+#define BAUD_RATE 20
 
 #define PACKET_CACHE_SIZE 8
 
@@ -57,9 +60,67 @@ void cachePacket(Packet* p) {
 	PacketCacheIndex %= PACKET_CACHE_SIZE; // Reset to zero if we run out of bits
 }
 
+
+/*====================================
+	SET RECEIVER TRACKING VARS
+====================================*/
+
+
+
+/// @brief Contains a pointer to the packet we are currently transmitting
+Packet* TX_Packet = NULL;
+bool TX_PacketBits[12] = {};
+#define TX_PacketLength 12
+
+/// @brief Contains the index of the bit within the packet that we are currently transmitting
+uint8_t TX_BitIndex = 0;
+
+/// @brief Stores the alarm_id used to delay sending the next bit without sleeping
+alarm_id_t TX_Alarm = 0;
+
+int64_t TX_FinishedSendingBit(alarm_id_t id, __unused void *user_data);
+
+/// @brief Callback function to trigger transmission of the next bit in the sequence
+/// @param id The alarm_id_t that expired, triggering this function
+/// @param user_data Allow passing additional values without use of globals
+int64_t TX_FinishedSendingBit(alarm_id_t id, __unused void *user_data) {
+	TX_BitIndex++; // Increment current bit of packet
+
+	// If we have reached the last packet, cache it and clear the timer
+	/// @warning we are maxing out at 8 bits here!
+	if (TX_BitIndex >= TX_PacketLength) {
+		// cachePacket(TX_Packet); // Lets not do retransmission for now :)
+		// Reset the alarm_id so that the main loop knows to move on to the next packet
+		TX_Alarm = 0;
+		printf("\tDone!\n");
+	} else {
+		gpio_put(TX_PIN, TX_PacketBits[TX_BitIndex]);
+		if (USE_ONBOARD_LED) setOnboardLED(TX_PacketBits[TX_BitIndex]);
+		printf("%d", TX_PacketBits[TX_BitIndex]);
+		TX_Alarm = add_alarm_in_ms(1000 / BAUD_RATE, TX_FinishedSendingBit, NULL, true);
+	}
+
+	return 0;
+}
+
+
+
+
+/*====================================
+
+
+			MAIN FUNCTION
+
+
+====================================*/
+
 /// @brief Entrypoint function for the program
 /// @return Status code
 int main() {
+	/*====================================
+			INITIALIZE BACKGROUND
+			 LIBRARY  PROCESSING
+	====================================*/
 	stdio_init_all(); // Initialize STDIO
 
 	// Initialize Transmission Pin
@@ -70,19 +131,90 @@ int main() {
 	// Initialize Reception Pin
 	gpio_init(RX_PIN);
 	gpio_set_dir(RX_PIN, GPIO_IN);
-	
+
+	// Initialize uart0 instance
+	uart_init(uart0, BAUD_RATE);
+	uart_set_format(uart0, 8, 1, UART_PARITY_EVEN);
+	// Enable UART Read Interrupts so that we can call a handler anytime a Byte is reassembled
+	uart_set_irqs_enabled(uart0, true, false);
+
+	// If Pico W model, initialize the Wi-Fi chip and onboard LED
 	if (USE_ONBOARD_LED) {
-		// Initialize the Wi-Fi chip and onboard LED
 		if (cyw43_arch_init()) { // Returns 0 on success
 			printf("Wi-Fi and Onboard LED init failed\n");
 		} else cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
 	}
 
+	/*====================================
+			SET TRACKING VARIABLES
+	====================================*/
+
+	/// @brief State of the onboard LED, used for status indication
 	int LED_ON = 0;
 
 	/// @brief Store created Packets until they can be transmitted in sequence
 	PacketQueue* outboundQueue = createQueue();
 
+	/*====DEBUG STUFF====*/
+	Packet* TEST1 = byteToPacket(toByte('A'));
+	Packet* TEST2 = byteToPacket(toByte('B'));
+	Packet* TEST3 = byteToPacket(toByte('C'));
+
+
+	/*====================================
+				MAIN CLOCK LOOP
+	====================================*/
+	while (true) {
+		// Add things to our outboundQueue so that we are always transmitting
+		if (outboundQueue->length == 0) {
+			pushQueue(outboundQueue, createQueueNode(TEST1));
+			pushQueue(outboundQueue, createQueueNode(TEST2));
+			pushQueue(outboundQueue, createQueueNode(TEST3));
+		}
+
+		// RECEIVER PROCESSING
+		
+
+		// TRANSMITTER PROCESSING
+
+		if (TX_Alarm <= 0 && outboundQueue->length != 0) {
+			PacketQueueNode* n = popQueue(outboundQueue);
+			TX_Packet = n->value;
+
+			n->value = NULL; // Don't free the packet yet
+			freePacketQueueNode(n); // Free the queue node since we no longer need it
+
+			TX_BitIndex = 0;
+
+			TX_PacketBits[0] = 0; // Start Bit
+			TX_PacketBits[1] = TX_Packet->firstByte->value & 128 ? 1 : 0;
+			TX_PacketBits[2] = TX_Packet->firstByte->value & 64 ? 1 : 0;
+			TX_PacketBits[3] = TX_Packet->firstByte->value & 32 ? 1 : 0;
+			TX_PacketBits[4] = TX_Packet->firstByte->value & 16 ? 1 : 0;
+			TX_PacketBits[5] = TX_Packet->firstByte->value & 8 ? 1 : 0;
+			TX_PacketBits[6] = TX_Packet->firstByte->value & 4 ? 1 : 0;
+			TX_PacketBits[7] = TX_Packet->firstByte->value & 2 ? 1 : 0;
+			TX_PacketBits[8] = TX_Packet->firstByte->value & 1 ? 1 : 0;
+			TX_PacketBits[9] = TX_Packet->parity; /// @warning This is always zero because we are never computing parity for created packets
+			TX_PacketBits[10] = 0; // Stop Bit
+			TX_PacketBits[11] = 1; // Reset to always-on status and delay for at least one bit
+
+			printf("%d %d %d %d %d %d %d %d %d %d %d %d\n", TX_PacketBits[0], TX_PacketBits[1], TX_PacketBits[2], TX_PacketBits[3], TX_PacketBits[4], TX_PacketBits[5], TX_PacketBits[6], TX_PacketBits[7], TX_PacketBits[8], TX_PacketBits[9], TX_PacketBits[10], TX_PacketBits[11]);
+
+			gpio_put(TX_PIN, TX_PacketBits[0]); // Send the Start Bit (we know it will always be zero but for consistency's sake)
+
+			TX_Alarm = add_alarm_in_ms(1000 / BAUD_RATE, TX_FinishedSendingBit, NULL, true);
+		}
+
+		// STDIO PROCESSING
+
+
+		tight_loop_contents();
+	}
+
+	/*===================================
+			EVERYTHING BELOW IS OLD
+	===================================*/
 
 	// Packet* m = toPacket("The quick brown fox jumps over the lazy dog.");
 
