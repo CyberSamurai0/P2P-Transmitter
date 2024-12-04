@@ -51,7 +51,7 @@ void pushQueue(PacketQueue* q, PacketQueueNode* n) {
 
 // Frees the associated Packet and itself
 void freePacketQueueNode(PacketQueueNode* n) {
-    freePacket(n->value); // Free the packet
+    if (n->value) freePacket(n->value); // Free the packet
     n->next = NULL;
     n->prev = NULL;
     free(n); // Free the node
