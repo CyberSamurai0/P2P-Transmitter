@@ -140,6 +140,11 @@ Functions</h2></td></tr>
 <tr class="memitem:a58d7eb8bbdc1be3f8ef0eca95948f05c" id="r_a58d7eb8bbdc1be3f8ef0eca95948f05c"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a58d7eb8bbdc1be3f8ef0eca95948f05c">TX_FinishedSendingBit</a> (alarm_id_t id, __unused void *user_data)</td></tr>
 <tr class="memdesc:a58d7eb8bbdc1be3f8ef0eca95948f05c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function to trigger transmission of the next bit in the sequence.  <br /></td></tr>
 <tr class="separator:a58d7eb8bbdc1be3f8ef0eca95948f05c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26055e297d2c6bb2eaad5355702821ec" id="r_a26055e297d2c6bb2eaad5355702821ec"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a26055e297d2c6bb2eaad5355702821ec">RX_ReadNextBit</a> (alarm_id_t id, __unused void *user_data)</td></tr>
+<tr class="separator:a26055e297d2c6bb2eaad5355702821ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab09c840477cde8b8ef2d655f33e68e04" id="r_ab09c840477cde8b8ef2d655f33e68e04"><td class="memItemLeft" align="right" valign="top"><a id="ab09c840477cde8b8ef2d655f33e68e04" name="ab09c840477cde8b8ef2d655f33e68e04"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>RX_PinStateChanged</b> (uint gpio, uint32_t events)</td></tr>
+<tr class="separator:ab09c840477cde8b8ef2d655f33e68e04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
 <tr class="memdesc:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entrypoint function for the program.  <br /></td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,9 +163,9 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>PacketCacheIndex</b> =
 <a class="el" href="structPacket.html">Packet</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>TX_Packet</b> = NULL</td></tr>
 <tr class="memdesc:a8b1c596b0f530048bba73268b510674b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains a pointer to the packet we are currently transmitting. <br /></td></tr>
 <tr class="separator:a8b1c596b0f530048bba73268b510674b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98fa8abbde92b3a0554ebc4246bafbf6" id="r_a98fa8abbde92b3a0554ebc4246bafbf6"><td class="memItemLeft" align="right" valign="top"><a id="a98fa8abbde92b3a0554ebc4246bafbf6" name="a98fa8abbde92b3a0554ebc4246bafbf6"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>TX_PacketBits</b> [12] = {}</td></tr>
-<tr class="separator:a98fa8abbde92b3a0554ebc4246bafbf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeff1649902938f93e78bd24308eae1ad" id="r_aeff1649902938f93e78bd24308eae1ad"><td class="memItemLeft" align="right" valign="top"><a id="aeff1649902938f93e78bd24308eae1ad" name="aeff1649902938f93e78bd24308eae1ad"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>TX_PacketBits</b> [TX_PacketLength] = {}</td></tr>
+<tr class="separator:aeff1649902938f93e78bd24308eae1ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef9d63ddf4907b705349f0798e2c6592" id="r_aef9d63ddf4907b705349f0798e2c6592"><td class="memItemLeft" align="right" valign="top"><a id="aef9d63ddf4907b705349f0798e2c6592" name="aef9d63ddf4907b705349f0798e2c6592"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>TX_BitIndex</b> = 0</td></tr>
 <tr class="memdesc:aef9d63ddf4907b705349f0798e2c6592"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the index of the bit within the packet that we are currently transmitting. <br /></td></tr>
@@ -169,6 +174,18 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>TX_BitIndex</b> = 
 alarm_id_t&#160;</td><td class="memItemRight" valign="bottom"><b>TX_Alarm</b> = 0</td></tr>
 <tr class="memdesc:afad6fa84bdce665221add343a5aa2022"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the alarm_id used to delay sending the next bit without sleeping. <br /></td></tr>
 <tr class="separator:afad6fa84bdce665221add343a5aa2022"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f6ce1479ce1c5cd82ac55a134ce66a5" id="r_a5f6ce1479ce1c5cd82ac55a134ce66a5"><td class="memItemLeft" align="right" valign="top"><a id="a5f6ce1479ce1c5cd82ac55a134ce66a5" name="a5f6ce1479ce1c5cd82ac55a134ce66a5"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>RX_PacketBits</b> [TX_PacketLength-1] = {}</td></tr>
+<tr class="separator:a5f6ce1479ce1c5cd82ac55a134ce66a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5b872ee71e70921ba442fd6fc355d71" id="r_af5b872ee71e70921ba442fd6fc355d71"><td class="memItemLeft" align="right" valign="top"><a id="af5b872ee71e70921ba442fd6fc355d71" name="af5b872ee71e70921ba442fd6fc355d71"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>RX_BitIndex</b> = 0</td></tr>
+<tr class="separator:af5b872ee71e70921ba442fd6fc355d71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9376bfdcfafc901be889237a8600ca59" id="r_a9376bfdcfafc901be889237a8600ca59"><td class="memItemLeft" align="right" valign="top"><a id="a9376bfdcfafc901be889237a8600ca59" name="a9376bfdcfafc901be889237a8600ca59"></a>
+alarm_id_t&#160;</td><td class="memItemRight" valign="bottom"><b>RX_Alarm</b> = 0</td></tr>
+<tr class="separator:a9376bfdcfafc901be889237a8600ca59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a299d83b426a3405d159ae47b599a4991" id="r_a299d83b426a3405d159ae47b599a4991"><td class="memItemLeft" align="right" valign="top"><a id="a299d83b426a3405d159ae47b599a4991" name="a299d83b426a3405d159ae47b599a4991"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>RX_Started</b> = 0</td></tr>
+<tr class="separator:a299d83b426a3405d159ae47b599a4991"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Program entrypoint and synchronization controller Point-to-Point Laser Diode Transmitter <a href="https://github.com/CyberSamurai0/P2P-Transmitter">https://github.com/CyberSamurai0/P2P-Transmitter</a>. </p>
@@ -240,6 +257,28 @@ alarm_id_t&#160;</td><td class="memItemRight" valign="bottom"><b>TX_Alarm</b> = 
 
 </div>
 </div>
+<a id="a26055e297d2c6bb2eaad5355702821ec" name="a26055e297d2c6bb2eaad5355702821ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26055e297d2c6bb2eaad5355702821ec">&#9670;&#160;</a></span>RX_ReadNextBit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t RX_ReadNextBit </td>
+          <td>(</td>
+          <td class="paramtype">alarm_id_t</td>          <td class="paramname"><span class="paramname"><em>id</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">__unused void *</td>          <td class="paramname"><span class="paramname"><em>user_data</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section warning"><dt>Warning</dt><dd>we are maxing out at 8 bits here!</dd></dl>
+
+</div>
+</div>
 <a id="a7710ce9c0942bdf4ba2f821ad55c1b19" name="a7710ce9c0942bdf4ba2f821ad55c1b19"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7710ce9c0942bdf4ba2f821ad55c1b19">&#9670;&#160;</a></span>setOnboardLED()</h2>
 
@@ -292,7 +331,6 @@ alarm_id_t&#160;</td><td class="memItemRight" valign="bottom"><b>TX_Alarm</b> = 
   </table>
   </dd>
 </dl>
-<dl class="section warning"><dt>Warning</dt><dd>we are maxing out at 8 bits here!</dd></dl>
 
 </div>
 </div>

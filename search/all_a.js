@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['setonboardled_0',['setOnboardLED',['../main_8c.html#a7710ce9c0942bdf4ba2f821ad55c1b19',1,'main.c']]],
-  ['setpacketid_1',['setPacketID',['../packet_8h.html#ab66961d92d8316c7893392ff859a859c',1,'packet.c']]]
+  ['rx_5freadnextbit_0',['RX_ReadNextBit',['../main_8c.html#a26055e297d2c6bb2eaad5355702821ec',1,'main.c']]]
 ];
