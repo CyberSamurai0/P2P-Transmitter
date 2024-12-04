@@ -110,8 +110,8 @@ $(function(){ initResizable(false); });
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ab703e339fc178ed62043765fc64f521a" id="r_ab703e339fc178ed62043765fc64f521a"><td class="memItemLeft" align="right" valign="top"><a id="ab703e339fc178ed62043765fc64f521a" name="ab703e339fc178ed62043765fc64f521a"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USE_ONBOARD_LED</b>&#160;&#160;&#160;1</td></tr>
+<tr class="memitem:ab703e339fc178ed62043765fc64f521a" id="r_ab703e339fc178ed62043765fc64f521a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab703e339fc178ed62043765fc64f521a">USE_ONBOARD_LED</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ab703e339fc178ed62043765fc64f521a"><td class="mdescLeft">&#160;</td><td class="mdescRight">If the Pi Pico module used does not have an onboard LED, set this to 0.  <br /></td></tr>
 <tr class="separator:ab703e339fc178ed62043765fc64f521a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3bb17f5daa2b1eaef58c8aa2d989e27e" id="r_a3bb17f5daa2b1eaef58c8aa2d989e27e"><td class="memItemLeft" align="right" valign="top"><a id="a3bb17f5daa2b1eaef58c8aa2d989e27e" name="a3bb17f5daa2b1eaef58c8aa2d989e27e"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>TX_PIN</b>&#160;&#160;&#160;0</td></tr>
@@ -119,9 +119,15 @@ Macros</h2></td></tr>
 <tr class="memitem:aa7089c01538b339ae745173c117f95b9" id="r_aa7089c01538b339ae745173c117f95b9"><td class="memItemLeft" align="right" valign="top"><a id="aa7089c01538b339ae745173c117f95b9" name="aa7089c01538b339ae745173c117f95b9"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>RX_PIN</b>&#160;&#160;&#160;1</td></tr>
 <tr class="separator:aa7089c01538b339ae745173c117f95b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4455691936f92fdd6c37566fc58ba1f" id="r_ad4455691936f92fdd6c37566fc58ba1f"><td class="memItemLeft" align="right" valign="top"><a id="ad4455691936f92fdd6c37566fc58ba1f" name="ad4455691936f92fdd6c37566fc58ba1f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BAUD_RATE</b>&#160;&#160;&#160;20</td></tr>
+<tr class="separator:ad4455691936f92fdd6c37566fc58ba1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51aa1ba729152a873c5882ee5fa44cb4" id="r_a51aa1ba729152a873c5882ee5fa44cb4"><td class="memItemLeft" align="right" valign="top"><a id="a51aa1ba729152a873c5882ee5fa44cb4" name="a51aa1ba729152a873c5882ee5fa44cb4"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>PACKET_CACHE_SIZE</b>&#160;&#160;&#160;8</td></tr>
 <tr class="separator:a51aa1ba729152a873c5882ee5fa44cb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a913331d9ffc2e5bee08e040f91983794" id="r_a913331d9ffc2e5bee08e040f91983794"><td class="memItemLeft" align="right" valign="top"><a id="a913331d9ffc2e5bee08e040f91983794" name="a913331d9ffc2e5bee08e040f91983794"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>TX_PacketLength</b>&#160;&#160;&#160;12</td></tr>
+<tr class="separator:a913331d9ffc2e5bee08e040f91983794"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -131,6 +137,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a0e32b4f778806fb492190a32f3dfb9e1" id="r_a0e32b4f778806fb492190a32f3dfb9e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e32b4f778806fb492190a32f3dfb9e1">cachePacket</a> (<a class="el" href="structPacket.html">Packet</a> *p)</td></tr>
 <tr class="memdesc:a0e32b4f778806fb492190a32f3dfb9e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a <a class="el" href="structPacket.html">Packet</a> to PacketCache and set its identifier to its index within the cache.  <br /></td></tr>
 <tr class="separator:a0e32b4f778806fb492190a32f3dfb9e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58d7eb8bbdc1be3f8ef0eca95948f05c" id="r_a58d7eb8bbdc1be3f8ef0eca95948f05c"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a58d7eb8bbdc1be3f8ef0eca95948f05c">TX_FinishedSendingBit</a> (alarm_id_t id, __unused void *user_data)</td></tr>
+<tr class="memdesc:a58d7eb8bbdc1be3f8ef0eca95948f05c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function to trigger transmission of the next bit in the sequence.  <br /></td></tr>
+<tr class="separator:a58d7eb8bbdc1be3f8ef0eca95948f05c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
 <tr class="memdesc:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entrypoint function for the program.  <br /></td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -145,10 +154,43 @@ Variables</h2></td></tr>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>PacketCacheIndex</b> = 0</td></tr>
 <tr class="memdesc:a28a6f3d5850900f3f256269bbbad174c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current usable index of <a class="el" href="#a5833db14ff8ed5e0126756bea523c232">PacketCache</a>. This should reset to 0 if it exceeds the length of <a class="el" href="#a5833db14ff8ed5e0126756bea523c232">PacketCache</a>. <br /></td></tr>
 <tr class="separator:a28a6f3d5850900f3f256269bbbad174c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b1c596b0f530048bba73268b510674b" id="r_a8b1c596b0f530048bba73268b510674b"><td class="memItemLeft" align="right" valign="top"><a id="a8b1c596b0f530048bba73268b510674b" name="a8b1c596b0f530048bba73268b510674b"></a>
+<a class="el" href="structPacket.html">Packet</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>TX_Packet</b> = NULL</td></tr>
+<tr class="memdesc:a8b1c596b0f530048bba73268b510674b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains a pointer to the packet we are currently transmitting. <br /></td></tr>
+<tr class="separator:a8b1c596b0f530048bba73268b510674b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98fa8abbde92b3a0554ebc4246bafbf6" id="r_a98fa8abbde92b3a0554ebc4246bafbf6"><td class="memItemLeft" align="right" valign="top"><a id="a98fa8abbde92b3a0554ebc4246bafbf6" name="a98fa8abbde92b3a0554ebc4246bafbf6"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>TX_PacketBits</b> [12] = {}</td></tr>
+<tr class="separator:a98fa8abbde92b3a0554ebc4246bafbf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef9d63ddf4907b705349f0798e2c6592" id="r_aef9d63ddf4907b705349f0798e2c6592"><td class="memItemLeft" align="right" valign="top"><a id="aef9d63ddf4907b705349f0798e2c6592" name="aef9d63ddf4907b705349f0798e2c6592"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>TX_BitIndex</b> = 0</td></tr>
+<tr class="memdesc:aef9d63ddf4907b705349f0798e2c6592"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the index of the bit within the packet that we are currently transmitting. <br /></td></tr>
+<tr class="separator:aef9d63ddf4907b705349f0798e2c6592"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afad6fa84bdce665221add343a5aa2022" id="r_afad6fa84bdce665221add343a5aa2022"><td class="memItemLeft" align="right" valign="top"><a id="afad6fa84bdce665221add343a5aa2022" name="afad6fa84bdce665221add343a5aa2022"></a>
+alarm_id_t&#160;</td><td class="memItemRight" valign="bottom"><b>TX_Alarm</b> = 0</td></tr>
+<tr class="memdesc:afad6fa84bdce665221add343a5aa2022"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the alarm_id used to delay sending the next bit without sleeping. <br /></td></tr>
+<tr class="separator:afad6fa84bdce665221add343a5aa2022"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Program entrypoint and synchronization controller Point-to-Point Laser Diode Transmitter <a href="https://github.com/CyberSamurai0/P2P-Transmitter">https://github.com/CyberSamurai0/P2P-Transmitter</a>. </p>
-</div><h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ab703e339fc178ed62043765fc64f521a" name="ab703e339fc178ed62043765fc64f521a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab703e339fc178ed62043765fc64f521a">&#9670;&#160;</a></span>USE_ONBOARD_LED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USE_ONBOARD_LED&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>If the Pi Pico module used does not have an onboard LED, set this to 0. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo</a></b></dt><dd>Adjust configuration based on your own hardware! </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
 <a id="a0e32b4f778806fb492190a32f3dfb9e1" name="a0e32b4f778806fb492190a32f3dfb9e1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0e32b4f778806fb492190a32f3dfb9e1">&#9670;&#160;</a></span>cachePacket()</h2>
 
@@ -192,7 +234,9 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>PacketCacheIndex</b> =
 
 <p>Entrypoint function for the program. </p>
 <dl class="section return"><dt>Returns</dt><dd>Status code </dd></dl>
+<p>State of the onboard LED, used for status indication</p>
 <p>Store created Packets until they can be transmitted in sequence</p>
+<dl class="section warning"><dt>Warning</dt><dd>This is always zero because we are never computing parity for created packets</dd></dl>
 
 </div>
 </div>
@@ -218,6 +262,37 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>PacketCacheIndex</b> =
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a58d7eb8bbdc1be3f8ef0eca95948f05c" name="a58d7eb8bbdc1be3f8ef0eca95948f05c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58d7eb8bbdc1be3f8ef0eca95948f05c">&#9670;&#160;</a></span>TX_FinishedSendingBit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t TX_FinishedSendingBit </td>
+          <td>(</td>
+          <td class="paramtype">alarm_id_t</td>          <td class="paramname"><span class="paramname"><em>id</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">__unused void *</td>          <td class="paramname"><span class="paramname"><em>user_data</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback function to trigger transmission of the next bit in the sequence. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The alarm_id_t that expired, triggering this function </td></tr>
+    <tr><td class="paramname">user_data</td><td>Allow passing additional values without use of globals </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>we are maxing out at 8 bits here!</dd></dl>
 
 </div>
 </div>
