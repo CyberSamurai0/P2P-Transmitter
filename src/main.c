@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
+#include <sys/select.h>
 
 /// @brief If the Pi Pico module used does not have an onboard LED, set this to 0.
 /// @todo Adjust configuration based on your own hardware!
@@ -34,7 +35,7 @@
 #define TX_PIN 0
 #define RX_PIN 1
 
-#define BAUD_RATE 20
+#define BAUD_RATE 1000
 
 #define PACKET_CACHE_SIZE 8
 
@@ -109,15 +110,15 @@ bool RX_Started = 0;
 int64_t RX_ReadNextBit(alarm_id_t id, __unused void *user_data);
 
 void RX_PinStateChanged(uint gpio, uint32_t events) {
-	if (GPIO_IRQ_EDGE_FALL & events) {
+	if (GPIO_IRQ_EDGE_RISE & events) {
 		if (!RX_Started) {
 			RX_Started = 1;
 			RX_Alarm = add_alarm_in_ms(1000 / BAUD_RATE, RX_ReadNextBit, NULL, true);
 			RX_BitIndex = 0;
 			RX_PacketBits[0] = 0; // Start Bit
-			printf("Incoming: 0");
+			printf("\nIncoming: 0");
 		}
-		gpio_acknowledge_irq(gpio, GPIO_IRQ_EDGE_FALL);
+		gpio_acknowledge_irq(gpio, GPIO_IRQ_EDGE_RISE);
 	}
 }
 
@@ -131,10 +132,10 @@ int64_t RX_ReadNextBit(alarm_id_t id, __unused void *user_data) {
 		// Reset the alarm_id so that the main loop knows we're done reassembling the packet
 		RX_Alarm = 0;
 		RX_Started = 0;
-		printf("\tDone!\n");
+		// printf("\tDone!\n");
 		// TODO we could just print the packet here and move on with our lives
 	} else {
-		bool RX_Bit = gpio_get(RX_PIN);
+		bool RX_Bit = gpio_get(RX_PIN) ? 0 : 1; // Invert!
 		printf("%d", RX_Bit);
 		RX_Alarm = add_alarm_in_ms(1000 / BAUD_RATE, RX_ReadNextBit, NULL, true);
 	}
@@ -170,7 +171,7 @@ int main() {
 	// Initialize Reception Pin
 	gpio_init(RX_PIN);
 	gpio_set_dir(RX_PIN, GPIO_IN);
-	gpio_set_irq_enabled_with_callback(RX_PIN, GPIO_IRQ_EDGE_FALL, true, RX_PinStateChanged);
+	gpio_set_irq_enabled_with_callback(RX_PIN, GPIO_IRQ_EDGE_RISE, true, RX_PinStateChanged);
 
 	// Initialize uart0 instance
 	// uart_init(uart0, BAUD_RATE);
@@ -239,10 +240,9 @@ int main() {
 			TX_PacketBits[10] = 0; // Stop Bit
 			TX_PacketBits[11] = 1; // Reset to always-on status and delay for at least one bit
 
-			printf("%c %d\n", TX_Packet->firstByte->value, TX_Packet->firstByte->value);
-			printf("Transmit: %d%d%d%d%d%d%d%d%d%d%d\n", TX_PacketBits[0], TX_PacketBits[1], TX_PacketBits[2], TX_PacketBits[3], TX_PacketBits[4], TX_PacketBits[5], TX_PacketBits[6], TX_PacketBits[7], TX_PacketBits[8], TX_PacketBits[9], TX_PacketBits[10]);
-			// printf("%d %d %d %d %d %d %d %d %d %d %d %d\n", TX_PacketBits[0], TX_PacketBits[1], TX_PacketBits[2], TX_PacketBits[3], TX_PacketBits[4], TX_PacketBits[5], TX_PacketBits[6], TX_PacketBits[7], TX_PacketBits[8], TX_PacketBits[9], TX_PacketBits[10], TX_PacketBits[11]);
-
+			// printf("\n%c %d\n", TX_Packet->firstByte->value, TX_Packet->firstByte->value);
+			// printf("Transmit: %d%d%d%d%d%d%d%d%d%d%d\n", TX_PacketBits[0], TX_PacketBits[1], TX_PacketBits[2], TX_PacketBits[3], TX_PacketBits[4], TX_PacketBits[5], TX_PacketBits[6], TX_PacketBits[7], TX_PacketBits[8], TX_PacketBits[9], TX_PacketBits[10]);
+		
 			gpio_put(TX_PIN, TX_PacketBits[0]); // Send the Start Bit (we know it will always be zero but for consistency's sake)
 			// printf("%d", TX_PacketBits[0]);
 
@@ -250,7 +250,7 @@ int main() {
 		}
 
 		// STDIO PROCESSING
-
+		
 
 		tight_loop_contents();
 	}
