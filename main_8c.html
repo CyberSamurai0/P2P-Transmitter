@@ -106,6 +106,7 @@ $(function(){ initResizable(false); });
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &quot;pico/stdlib.h&quot;</code><br />
 <code>#include &quot;hardware/gpio.h&quot;</code><br />
+<code>#include &lt;sys/select.h&gt;</code><br />
 <code>#include &quot;pico/cyw43_arch.h&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
@@ -120,7 +121,7 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>RX_PIN</b>&#160;&#160;&#160;1</td></tr>
 <tr class="separator:aa7089c01538b339ae745173c117f95b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4455691936f92fdd6c37566fc58ba1f" id="r_ad4455691936f92fdd6c37566fc58ba1f"><td class="memItemLeft" align="right" valign="top"><a id="ad4455691936f92fdd6c37566fc58ba1f" name="ad4455691936f92fdd6c37566fc58ba1f"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BAUD_RATE</b>&#160;&#160;&#160;20</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BAUD_RATE</b>&#160;&#160;&#160;1000</td></tr>
 <tr class="separator:ad4455691936f92fdd6c37566fc58ba1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51aa1ba729152a873c5882ee5fa44cb4" id="r_a51aa1ba729152a873c5882ee5fa44cb4"><td class="memItemLeft" align="right" valign="top"><a id="a51aa1ba729152a873c5882ee5fa44cb4" name="a51aa1ba729152a873c5882ee5fa44cb4"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>PACKET_CACHE_SIZE</b>&#160;&#160;&#160;8</td></tr>
