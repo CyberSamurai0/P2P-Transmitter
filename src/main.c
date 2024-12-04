@@ -92,15 +92,27 @@ int64_t TX_FinishedSendingBit(alarm_id_t id, __unused void *user_data) {
 		// cachePacket(TX_Packet); // Lets not do retransmission for now :)
 		// Reset the alarm_id so that the main loop knows to move on to the next packet
 		TX_Alarm = 0;
-		printf("\tDone!\n");
+		// printf("\tDone!\n");
 	} else {
 		gpio_put(TX_PIN, TX_PacketBits[TX_BitIndex]);
 		if (USE_ONBOARD_LED) setOnboardLED(TX_PacketBits[TX_BitIndex]);
-		printf("%d", TX_PacketBits[TX_BitIndex]);
+		// printf("%d", TX_PacketBits[TX_BitIndex]);
 		TX_Alarm = add_alarm_in_ms(1000 / BAUD_RATE, TX_FinishedSendingBit, NULL, true);
 	}
 
 	return 0;
+}
+
+void RX_PinStateChanged(uint gpio, uint32_t events) {
+	if (GPIO_IRQ_EDGE_FALL & events) {
+		printf("RX_PIN State:\tLow\n");
+		RX_Started = 1;
+		gpio_acknowledge_irq(gpio, GPIO_IRQ_EDGE_FALL);
+	}
+	if (GPIO_IRQ_EDGE_RISE & events) {
+		printf("RX_PIN State:\tHigh\n");
+		gpio_acknowledge_irq(gpio, GPIO_IRQ_EDGE_RISE);
+	}
 }
 
 
@@ -131,12 +143,13 @@ int main() {
 	// Initialize Reception Pin
 	gpio_init(RX_PIN);
 	gpio_set_dir(RX_PIN, GPIO_IN);
+	gpio_set_irq_enabled_with_callback(RX_PIN, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, RX_PinStateChanged);
 
 	// Initialize uart0 instance
-	uart_init(uart0, BAUD_RATE);
-	uart_set_format(uart0, 8, 1, UART_PARITY_EVEN);
-	// Enable UART Read Interrupts so that we can call a handler anytime a Byte is reassembled
-	uart_set_irqs_enabled(uart0, true, false);
+	// uart_init(uart0, BAUD_RATE);
+	// uart_set_format(uart0, 8, 1, UART_PARITY_EVEN);
+	// // Enable UART Read Interrupts so that we can call a handler anytime a Byte is reassembled
+	// uart_set_irqs_enabled(uart0, true, false);
 
 	// If Pico W model, initialize the Wi-Fi chip and onboard LED
 	if (USE_ONBOARD_LED) {
@@ -173,7 +186,6 @@ int main() {
 		}
 
 		// RECEIVER PROCESSING
-		
 
 		// TRANSMITTER PROCESSING
 
@@ -199,7 +211,7 @@ int main() {
 			TX_PacketBits[10] = 0; // Stop Bit
 			TX_PacketBits[11] = 1; // Reset to always-on status and delay for at least one bit
 
-			printf("%d %d %d %d %d %d %d %d %d %d %d %d\n", TX_PacketBits[0], TX_PacketBits[1], TX_PacketBits[2], TX_PacketBits[3], TX_PacketBits[4], TX_PacketBits[5], TX_PacketBits[6], TX_PacketBits[7], TX_PacketBits[8], TX_PacketBits[9], TX_PacketBits[10], TX_PacketBits[11]);
+			// printf("%d %d %d %d %d %d %d %d %d %d %d %d\n", TX_PacketBits[0], TX_PacketBits[1], TX_PacketBits[2], TX_PacketBits[3], TX_PacketBits[4], TX_PacketBits[5], TX_PacketBits[6], TX_PacketBits[7], TX_PacketBits[8], TX_PacketBits[9], TX_PacketBits[10], TX_PacketBits[11]);
 
 			gpio_put(TX_PIN, TX_PacketBits[0]); // Send the Start Bit (we know it will always be zero but for consistency's sake)
 
