@@ -69,8 +69,8 @@ void cachePacket(Packet* p) {
 
 /// @brief Contains a pointer to the packet we are currently transmitting
 Packet* TX_Packet = NULL;
-bool TX_PacketBits[12] = {};
 #define TX_PacketLength 12
+bool TX_PacketBits[TX_PacketLength] = {};
 
 /// @brief Contains the index of the bit within the packet that we are currently transmitting
 uint8_t TX_BitIndex = 0;
@@ -86,8 +86,6 @@ int64_t TX_FinishedSendingBit(alarm_id_t id, __unused void *user_data);
 int64_t TX_FinishedSendingBit(alarm_id_t id, __unused void *user_data) {
 	TX_BitIndex++; // Increment current bit of packet
 
-	// If we have reached the last packet, cache it and clear the timer
-	/// @warning we are maxing out at 8 bits here!
 	if (TX_BitIndex >= TX_PacketLength) {
 		// cachePacket(TX_Packet); // Lets not do retransmission for now :)
 		// Reset the alarm_id so that the main loop knows to move on to the next packet
@@ -103,16 +101,45 @@ int64_t TX_FinishedSendingBit(alarm_id_t id, __unused void *user_data) {
 	return 0;
 }
 
+bool RX_PacketBits[TX_PacketLength-1] = {};
+uint8_t RX_BitIndex = 0;
+alarm_id_t RX_Alarm = 0;
+bool RX_Started = 0;
+
+int64_t RX_ReadNextBit(alarm_id_t id, __unused void *user_data);
+
 void RX_PinStateChanged(uint gpio, uint32_t events) {
 	if (GPIO_IRQ_EDGE_FALL & events) {
-		printf("RX_PIN State:\tLow\n");
-		RX_Started = 1;
+		if (!RX_Started) {
+			RX_Started = 1;
+			RX_Alarm = add_alarm_in_ms(1000 / BAUD_RATE, RX_ReadNextBit, NULL, true);
+			RX_BitIndex = 0;
+			RX_PacketBits[0] = 0; // Start Bit
+			printf("Incoming: 0");
+		}
 		gpio_acknowledge_irq(gpio, GPIO_IRQ_EDGE_FALL);
 	}
-	if (GPIO_IRQ_EDGE_RISE & events) {
-		printf("RX_PIN State:\tHigh\n");
-		gpio_acknowledge_irq(gpio, GPIO_IRQ_EDGE_RISE);
+}
+
+int64_t RX_ReadNextBit(alarm_id_t id, __unused void *user_data) {
+	RX_BitIndex++; // Increment current bit of reassembled packet
+
+	// If we have reached the last packet, cache it and clear the timer
+	/// @warning we are maxing out at 8 bits here!
+	if (RX_BitIndex >= TX_PacketLength-1) {
+		// cachePacket(TX_Packet); // Lets not do retransmission for now :)
+		// Reset the alarm_id so that the main loop knows we're done reassembling the packet
+		RX_Alarm = 0;
+		RX_Started = 0;
+		printf("\tDone!\n");
+		// TODO we could just print the packet here and move on with our lives
+	} else {
+		bool RX_Bit = gpio_get(RX_PIN);
+		printf("%d", RX_Bit);
+		RX_Alarm = add_alarm_in_ms(1000 / BAUD_RATE, RX_ReadNextBit, NULL, true);
 	}
+
+	return 0;
 }
 
 
@@ -143,7 +170,7 @@ int main() {
 	// Initialize Reception Pin
 	gpio_init(RX_PIN);
 	gpio_set_dir(RX_PIN, GPIO_IN);
-	gpio_set_irq_enabled_with_callback(RX_PIN, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, RX_PinStateChanged);
+	gpio_set_irq_enabled_with_callback(RX_PIN, GPIO_IRQ_EDGE_FALL, true, RX_PinStateChanged);
 
 	// Initialize uart0 instance
 	// uart_init(uart0, BAUD_RATE);
@@ -187,6 +214,7 @@ int main() {
 
 		// RECEIVER PROCESSING
 
+
 		// TRANSMITTER PROCESSING
 
 		if (TX_Alarm <= 0 && outboundQueue->length != 0) {
@@ -211,9 +239,12 @@ int main() {
 			TX_PacketBits[10] = 0; // Stop Bit
 			TX_PacketBits[11] = 1; // Reset to always-on status and delay for at least one bit
 
+			printf("%c %d\n", TX_Packet->firstByte->value, TX_Packet->firstByte->value);
+			printf("Transmit: %d%d%d%d%d%d%d%d%d%d%d\n", TX_PacketBits[0], TX_PacketBits[1], TX_PacketBits[2], TX_PacketBits[3], TX_PacketBits[4], TX_PacketBits[5], TX_PacketBits[6], TX_PacketBits[7], TX_PacketBits[8], TX_PacketBits[9], TX_PacketBits[10]);
 			// printf("%d %d %d %d %d %d %d %d %d %d %d %d\n", TX_PacketBits[0], TX_PacketBits[1], TX_PacketBits[2], TX_PacketBits[3], TX_PacketBits[4], TX_PacketBits[5], TX_PacketBits[6], TX_PacketBits[7], TX_PacketBits[8], TX_PacketBits[9], TX_PacketBits[10], TX_PacketBits[11]);
 
 			gpio_put(TX_PIN, TX_PacketBits[0]); // Send the Start Bit (we know it will always be zero but for consistency's sake)
+			// printf("%d", TX_PacketBits[0]);
 
 			TX_Alarm = add_alarm_in_ms(1000 / BAUD_RATE, TX_FinishedSendingBit, NULL, true);
 		}
