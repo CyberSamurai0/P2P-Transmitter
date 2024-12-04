@@ -86,7 +86,7 @@ void sendMessage(char *m) {
 #define BAUD_RATE   20 // With no multiplexing, this equates to 1b/50ms
 #define DATA_BITS   8
 #define STOP_BITS   1
-#define PARITY      UART_PARITY_NONE
+#define PARITY      UART_PARITY_EVEN
 
 /// @brief Converts an 8-bit integer to a Byte and appends it to the supplied Packet
 /// @param packet The Packet structure to be modified
@@ -128,7 +128,7 @@ Packet* receiveMessage() {
     Packet* incomingPacket = createPacket(); // This can be NULL if we are out of memory
 
     // Continue reading while there is data available in the UART buffer
-    while (incomingPacket && uart_is_readable(UART_ID)) {
+    while (incomingPacket && uart_is_enabled(UART_ID) && uart_is_readable(UART_ID)) {
         // Read a byte from the UART receiver
         uint8_t ch = uart_getc(UART_ID);
 
