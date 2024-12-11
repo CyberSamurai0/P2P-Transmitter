@@ -134,11 +134,13 @@ int64_t RX_ReadNextBit(alarm_id_t id, __unused void *user_data) {
 		// Reset the alarm_id so that the main loop knows we're done reassembling the packet
 		RX_Alarm = 0;
 		RX_Started = 0;
-		printf("\n");
+		char c = RX_PacketBits[1] << 7 | RX_PacketBits[2] << 6 | RX_PacketBits[3] << 5 | RX_PacketBits[4] << 4 | RX_PacketBits[5] << 3 | RX_PacketBits[6] << 2 | RX_PacketBits[7] << 1 | RX_PacketBits[8];
+		printf("\t: \x1b[36m%c\x1b[0m\n", c);
 		// TODO we could just print the packet here and move on with our lives
 	} else {
 		bool RX_Bit = gpio_get(RX_PIN) ? 0 : 1; // Invert!
 		printf("\x1b[36m%d\x1b[0m", RX_Bit);
+		RX_PacketBits[RX_BitIndex] = RX_Bit;
 		RX_Alarm = add_alarm_in_ms(1000 / BAUD_RATE, RX_ReadNextBit, NULL, true);
 	}
 
