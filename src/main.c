@@ -35,7 +35,7 @@
 #define TX_PIN 0
 #define RX_PIN 1
 
-#define BAUD_RATE 1000
+#define BAUD_RATE 10
 
 #define PACKET_CACHE_SIZE 8
 
@@ -130,6 +130,8 @@ int64_t RX_ReadNextBit(alarm_id_t id, __unused void *user_data) {
 	if (RX_BitIndex >= TX_PacketLength-1) {
 		// cachePacket(TX_Packet); // Lets not do retransmission for now :)
 		// Reset the alarm_id so that the main loop knows we're done reassembling the packet
+		char c = RX_PacketBits[1] << 7 | RX_PacketBits[2] << 6 | RX_PacketBits[3] << 5 | RX_PacketBits[4] << 4 | RX_PacketBits[5] << 3 | RX_PacketBits[6] << 2 | RX_PacketBits[7] << 1 | RX_PacketBits[8];
+		printf("\t: %c", c);
 		RX_Alarm = 0;
 		RX_Started = 0;
 		// printf("\tDone!\n");
@@ -137,6 +139,7 @@ int64_t RX_ReadNextBit(alarm_id_t id, __unused void *user_data) {
 	} else {
 		bool RX_Bit = gpio_get(RX_PIN) ? 0 : 1; // Invert!
 		printf("%d", RX_Bit);
+		RX_PacketBits[RX_BitIndex] = RX_Bit;
 		RX_Alarm = add_alarm_in_ms(1000 / BAUD_RATE, RX_ReadNextBit, NULL, true);
 	}
 
@@ -197,63 +200,63 @@ int main() {
 	PacketQueue* outboundQueue = createQueue();
 
 	/*====DEBUG STUFF====*/
-	Packet* TEST1 = byteToPacket(toByte('A'));
-	Packet* TEST2 = byteToPacket(toByte('B'));
-	Packet* TEST3 = byteToPacket(toByte('C'));
+	// Packet* TEST1 = byteToPacket(toByte('A'));
+	// Packet* TEST2 = byteToPacket(toByte('B'));
+	// Packet* TEST3 = byteToPacket(toByte('C'));
 
 
 	/*====================================
 				MAIN CLOCK LOOP
 	====================================*/
-	while (true) {
-		// Add things to our outboundQueue so that we are always transmitting
-		if (outboundQueue->length == 0) {
-			pushQueue(outboundQueue, createQueueNode(TEST1));
-			pushQueue(outboundQueue, createQueueNode(TEST2));
-			pushQueue(outboundQueue, createQueueNode(TEST3));
-		}
+	// while (true) {
+	// 	// Add things to our outboundQueue so that we are always transmitting
+	// 	// if (outboundQueue->length == 0) {
+	// 	// 	pushQueue(outboundQueue, createQueueNode(TEST1));
+	// 	// 	pushQueue(outboundQueue, createQueueNode(TEST2));
+	// 	// 	pushQueue(outboundQueue, createQueueNode(TEST3));
+	// 	// }
 
-		// RECEIVER PROCESSING
+	// 	// RECEIVER PROCESSING
 
 
-		// TRANSMITTER PROCESSING
+	// 	// TRANSMITTER PROCESSING
 
-		if (TX_Alarm <= 0 && outboundQueue->length != 0) {
-			PacketQueueNode* n = popQueue(outboundQueue);
-			TX_Packet = n->value;
+	// 	if (TX_Alarm <= 0 && outboundQueue->length != 0) {
+	// 		PacketQueueNode* n = popQueue(outboundQueue);
+	// 		TX_Packet = n->value;
 
-			n->value = NULL; // Don't free the packet yet
-			freePacketQueueNode(n); // Free the queue node since we no longer need it
+	// 		n->value = NULL; // Don't free the packet yet
+	// 		freePacketQueueNode(n); // Free the queue node since we no longer need it
 
-			TX_BitIndex = 0;
+	// 		TX_BitIndex = 0;
 
-			TX_PacketBits[0] = 0; // Start Bit
-			TX_PacketBits[1] = TX_Packet->firstByte->value & 128 ? 1 : 0;
-			TX_PacketBits[2] = TX_Packet->firstByte->value & 64 ? 1 : 0;
-			TX_PacketBits[3] = TX_Packet->firstByte->value & 32 ? 1 : 0;
-			TX_PacketBits[4] = TX_Packet->firstByte->value & 16 ? 1 : 0;
-			TX_PacketBits[5] = TX_Packet->firstByte->value & 8 ? 1 : 0;
-			TX_PacketBits[6] = TX_Packet->firstByte->value & 4 ? 1 : 0;
-			TX_PacketBits[7] = TX_Packet->firstByte->value & 2 ? 1 : 0;
-			TX_PacketBits[8] = TX_Packet->firstByte->value & 1 ? 1 : 0;
-			TX_PacketBits[9] = TX_Packet->parity; /// @warning This is always zero because we are never computing parity for created packets
-			TX_PacketBits[10] = 0; // Stop Bit
-			TX_PacketBits[11] = 1; // Reset to always-on status and delay for at least one bit
+	// 		TX_PacketBits[0] = 0; // Start Bit
+	// 		TX_PacketBits[1] = TX_Packet->firstByte->value & 128 ? 1 : 0;
+	// 		TX_PacketBits[2] = TX_Packet->firstByte->value & 64 ? 1 : 0;
+	// 		TX_PacketBits[3] = TX_Packet->firstByte->value & 32 ? 1 : 0;
+	// 		TX_PacketBits[4] = TX_Packet->firstByte->value & 16 ? 1 : 0;
+	// 		TX_PacketBits[5] = TX_Packet->firstByte->value & 8 ? 1 : 0;
+	// 		TX_PacketBits[6] = TX_Packet->firstByte->value & 4 ? 1 : 0;
+	// 		TX_PacketBits[7] = TX_Packet->firstByte->value & 2 ? 1 : 0;
+	// 		TX_PacketBits[8] = TX_Packet->firstByte->value & 1 ? 1 : 0;
+	// 		TX_PacketBits[9] = TX_Packet->parity; /// @warning This is always zero because we are never computing parity for created packets
+	// 		TX_PacketBits[10] = 0; // Stop Bit
+	// 		TX_PacketBits[11] = 1; // Reset to always-on status and delay for at least one bit
 
-			// printf("\n%c %d\n", TX_Packet->firstByte->value, TX_Packet->firstByte->value);
-			// printf("Transmit: %d%d%d%d%d%d%d%d%d%d%d\n", TX_PacketBits[0], TX_PacketBits[1], TX_PacketBits[2], TX_PacketBits[3], TX_PacketBits[4], TX_PacketBits[5], TX_PacketBits[6], TX_PacketBits[7], TX_PacketBits[8], TX_PacketBits[9], TX_PacketBits[10]);
+	// 		// printf("\n%c %d\n", TX_Packet->firstByte->value, TX_Packet->firstByte->value);
+	// 		// printf("Transmit: %d%d%d%d%d%d%d%d%d%d%d\n", TX_PacketBits[0], TX_PacketBits[1], TX_PacketBits[2], TX_PacketBits[3], TX_PacketBits[4], TX_PacketBits[5], TX_PacketBits[6], TX_PacketBits[7], TX_PacketBits[8], TX_PacketBits[9], TX_PacketBits[10]);
 		
-			gpio_put(TX_PIN, TX_PacketBits[0]); // Send the Start Bit (we know it will always be zero but for consistency's sake)
-			// printf("%d", TX_PacketBits[0]);
+	// 		gpio_put(TX_PIN, TX_PacketBits[0]); // Send the Start Bit (we know it will always be zero but for consistency's sake)
+	// 		// printf("%d", TX_PacketBits[0]);
 
-			TX_Alarm = add_alarm_in_ms(1000 / BAUD_RATE, TX_FinishedSendingBit, NULL, true);
-		}
+	// 		TX_Alarm = add_alarm_in_ms(1000 / BAUD_RATE, TX_FinishedSendingBit, NULL, true);
+	// 	}
 
-		// STDIO PROCESSING
+	// 	// STDIO PROCESSING
 		
 
-		tight_loop_contents();
-	}
+	// 	tight_loop_contents();
+	// }
 
 	/*===================================
 			EVERYTHING BELOW IS OLD
@@ -267,25 +270,75 @@ int main() {
 		// 	setOnboardLED(LED_ON); // Toggle LED on each input
 		// }
 
-		printf("\nTesting Scan: ");
-		char x = 0; // Reset on every iteration
-		while (x != '\n' && x != '\r' && x != 13) {
-			scanf("%c", &x); // Scan char by char
-			printf("%c", x); // Echo the provided character
-			if (x == '\n' || x == '\r') break; // REMOVE THIS LATER, WE WANT TO IMMEDIATELY SEND ALL DATA ANYWAY
-			Packet* m2 = byteToPacket(toByte(x)); // Create a packet for each character (like SSH)
-			m2->header = 0b0000;
-			cachePacket(m2);
-			sendPacket(m2, TX_PIN);
-			PacketQueueNode* n = createQueueNode(m2);
-			pushQueue(outboundQueue, n);
-			// printPacket(m2);
-		}
+		printf("\nSend Message: ");
+		char x[33];
+		scanf("%32s", &x);
+		printf("%s", x);
+		int i=0;
+		while (x[i]) {
+			printf("\nSending: ");
+			printf("%c", x[i] & 128 ? '1' : '0');
+			printf("%c", x[i] & 64 ? '1' : '0');
+			printf("%c", x[i] & 32 ? '1' : '0');
+			printf("%c", x[i] & 16 ? '1' : '0');
+			printf("%c", x[i] & 8 ? '1' : '0');
+			printf("%c", x[i] & 4 ? '1' : '0');
+			printf("%c", x[i] & 2 ? '1' : '0');
+			printf("%c", x[i] & 1 ? '1' : '0');
+			printf(" : %c\n", x[i]);
 
-		printf("\nQUEUE CONTENTS:\n");
+			gpio_put(TX_PIN, 0); // start
+			sleep_ms(1000 / BAUD_RATE);
+			gpio_put(TX_PIN, x[i] & 128 ? 1 : 0);
+			sleep_ms(1000 / BAUD_RATE);
+			gpio_put(TX_PIN, x[i] & 64 ? 1 : 0);
+			sleep_ms(1000 / BAUD_RATE);
+			gpio_put(TX_PIN, x[i] & 32 ? 1 : 0);
+			sleep_ms(1000 / BAUD_RATE);
+			gpio_put(TX_PIN, x[i] & 16 ? 1 : 0);
+			sleep_ms(1000 / BAUD_RATE);
+			gpio_put(TX_PIN, x[i] & 8 ? 1 : 0);
+			sleep_ms(1000 / BAUD_RATE);
+			gpio_put(TX_PIN, x[i] & 4 ? 1 : 0);
+			sleep_ms(1000 / BAUD_RATE);
+			gpio_put(TX_PIN, x[i] & 2 ? 1 : 0);
+			sleep_ms(1000 / BAUD_RATE);
+			gpio_put(TX_PIN, x[i] & 1 ? 1 : 0);
+
+
+
+
+			sleep_ms(1000 / BAUD_RATE);
+			gpio_put(TX_PIN, 0); // parity
+			sleep_ms(1000 / BAUD_RATE);
+			gpio_put(TX_PIN, 0); // stop
+			sleep_ms(1000 / BAUD_RATE);
+			gpio_put(TX_PIN, 1); // set final
+			sleep_ms(1000 / BAUD_RATE);
+
+			i++;
+		}
+		
+		// char x = 0; // Reset on every iteration
+		// while (x != '\n' && x != '\r' && x != 13) {
+			
+		// 	scanf("%c", &x); // Scan char by char
+		// 	printf("%c", x); // Echo the provided character
+
+		// 	if (x == '\n' || x == '\r') break; // REMOVE THIS LATER, WE WANT TO IMMEDIATELY SEND ALL DATA ANYWAY
+		// 	Packet* m2 = byteToPacket(toByte(x)); // Create a packet for each character (like SSH)
+		// 	m2->header = 0b0000;
+		// 	cachePacket(m2);
+		// 	sendPacket(m2, TX_PIN);
+		// 	PacketQueueNode* n = createQueueNode(m2);
+		// 	pushQueue(outboundQueue, n);
+		// 	// printPacket(m2);
+		// }
+
+		//printf("\nQUEUE CONTENTS:\n");
 		// TODO manually collect string input to be added to queue
 
-		printPacketQueue(outboundQueue);
+		//printPacketQueue(outboundQueue);
 		// PacketQueueNode* n = popQueue(outboundQueue);
 		// sendPacket(n->value, TX_PIN);
 

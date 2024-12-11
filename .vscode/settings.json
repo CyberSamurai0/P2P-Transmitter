@@ -44,7 +44,8 @@
         "cyw43_arch.h": "c",
         "span": "c",
         "cstdint": "cpp",
-        "packet.h": "c"
+        "packet.h": "c",
+        "type_traits": "c"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }
