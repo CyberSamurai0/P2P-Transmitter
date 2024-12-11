@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['next_0',['next',['../structbyte.html#ac61c9a0bd1d790e2eea3f932e8da7381',1,'byte']]]
+  ['packetcache_0',['PacketCache',['../main_8c.html#a5833db14ff8ed5e0126756bea523c232',1,'main.c']]],
+  ['packetcacheindex_1',['PacketCacheIndex',['../main_8c.html#a28a6f3d5850900f3f256269bbbad174c',1,'main.c']]],
+  ['parity_2',['parity',['../structPacket.html#a0fb308f5546baa51c580ae2ed307ab6d',1,'Packet']]]
 ];

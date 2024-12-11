@@ -188,9 +188,6 @@ Functions</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="structPacket.html">Packet</a> * createPacket </td>
@@ -199,11 +196,6 @@ Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">related</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Creates a reserved, empty <a class="el" href="structPacket.html">Packet</a> struct instance. </p>
@@ -333,14 +325,6 @@ Functions</h2></td></tr>
 <p>Inserts a <a class="el" href="structByte.html">Byte</a> at the end of a <a class="el" href="structPacket.html">Packet</a>. This function ignores linked Bytes, so they should be handled appropriately. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">p</td><td>Pointer to the <a class="el" href="structPacket.html">Packet</a> to be modified </td></tr>
-    <tr><td class="paramname">b</td><td>Pointer to the <a class="el" href="structByte.html">Byte</a> to be appended. The addresses stored within .previous and .next will be overwritten.</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Creates a <a class="el" href="structPacket.html">Packet</a> to be stored within the PacketCache.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">p</td><td>Pointer to the <a class="el" href="structPacket.html">Packet</a> to be modified </td></tr>
     <tr><td class="paramname">b</td><td>Pointer to the <a class="el" href="structByte.html">Byte</a> to be appended. The addresses stored within .previous and .next will be overwritten. </td></tr>
   </table>
   </dd>
@@ -367,13 +351,6 @@ Functions</h2></td></tr>
 <dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000002">Deprecated</a></b></dt><dd><a class="el" href="structPacket.html">Packet</a> transmission should be implemented in uart.c </dd></dl>
 <p>Sending and retransmitting </p><dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000003">Deprecated</a></b></dt><dd><a class="el" href="structPacket.html">Packet</a> transmission should be implemented in uart.c </dd></dl>
 <p>Print the detailed contents of a <a class="el" href="structByte.html">Byte</a> struct instance </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">b</td><td>Pointer to the <a class="el" href="structByte.html">Byte</a> to be printed</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Sending and retransmitting.</p>
-<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">b</td><td>Pointer to the <a class="el" href="structByte.html">Byte</a> to be printed </td></tr>
   </table>
