@@ -1,6 +1,6 @@
-# Point to Point Infrared Data Transmission built using C
+# Point to Point Laser Transmission built using C
 ## Abstract
-This project aims to implement wireless point-to-point data transmission using laser diodes, programmed entirely in C. Each endpoint utilizes a Raspberry Pi Pico RP2040 microcontroller to manage data transmission and reception. 
+This project aims to implement wireless point-to-point data transmission using laser diodes, programmed entirely in C. Each endpoint utilizes a Raspberry Pi Pico RP2040 microcontroller to manage data transmission and reception via a from-scratch implementation of UART. 
 
 ## [Quick Start Guide](https://github.com/CyberSamurai0/P2P-Transmitter/wiki)
 Documentation on how to implement this project is available on the repository's **[Wiki](https://github.com/CyberSamurai0/P2P-Transmitter/wiki)**.
@@ -16,5 +16,3 @@ Undergraduate at Purdue University double-majoring in Cybersecurity and Network 
 Undergraduate at Purdue University double-majoring in Cybersecurity and Network Engineering Technology, minoring in Organizational Leadership
 #### Colin A. Saumure
 Undergraduate at Purdue University double-majoring in Cybersecurity and Network Engineering Technology, minoring in Electrical Engineering Technology
-
-## Abstract
