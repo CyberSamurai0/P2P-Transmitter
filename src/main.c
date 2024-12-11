@@ -35,7 +35,7 @@
 #define TX_PIN 0
 #define RX_PIN 1
 
-#define BAUD_RATE 1000
+#define BAUD_RATE 10
 
 #define PACKET_CACHE_SIZE 8
 
@@ -63,10 +63,8 @@ void cachePacket(Packet* p) {
 
 
 /*====================================
-	SET RECEIVER TRACKING VARS
+	TRACK TRANSMITTED PACKETS
 ====================================*/
-
-
 
 /// @brief Contains a pointer to the packet we are currently transmitting
 Packet* TX_Packet = NULL;
@@ -91,16 +89,20 @@ int64_t TX_FinishedSendingBit(alarm_id_t id, __unused void *user_data) {
 		// cachePacket(TX_Packet); // Lets not do retransmission for now :)
 		// Reset the alarm_id so that the main loop knows to move on to the next packet
 		TX_Alarm = 0;
-		// printf("\tDone!\n");
+		printf("\n");
 	} else {
 		gpio_put(TX_PIN, TX_PacketBits[TX_BitIndex]);
 		if (USE_ONBOARD_LED) setOnboardLED(TX_PacketBits[TX_BitIndex]);
-		// printf("%d", TX_PacketBits[TX_BitIndex]);
+		printf("\x1b[31m%d\x1b[0m", TX_PacketBits[TX_BitIndex]);
 		TX_Alarm = add_alarm_in_ms(1000 / BAUD_RATE, TX_FinishedSendingBit, NULL, true);
 	}
 
 	return 0;
 }
+
+/*====================================
+		TRACK RECEIVED PACKETS
+====================================*/
 
 bool RX_PacketBits[TX_PacketLength-1] = {};
 uint8_t RX_BitIndex = 0;
@@ -116,7 +118,7 @@ void RX_PinStateChanged(uint gpio, uint32_t events) {
 			RX_Alarm = add_alarm_in_ms(1000 / BAUD_RATE, RX_ReadNextBit, NULL, true);
 			RX_BitIndex = 0;
 			RX_PacketBits[0] = 0; // Start Bit
-			printf("\nIncoming: 0");
+			printf("\x1b[36m0\x1b[0m");
 		}
 		gpio_acknowledge_irq(gpio, GPIO_IRQ_EDGE_RISE);
 	}
@@ -132,18 +134,30 @@ int64_t RX_ReadNextBit(alarm_id_t id, __unused void *user_data) {
 		// Reset the alarm_id so that the main loop knows we're done reassembling the packet
 		RX_Alarm = 0;
 		RX_Started = 0;
-		// printf("\tDone!\n");
+		printf("\n");
 		// TODO we could just print the packet here and move on with our lives
 	} else {
 		bool RX_Bit = gpio_get(RX_PIN) ? 0 : 1; // Invert!
-		printf("%d", RX_Bit);
+		printf("\x1b[36m%d\x1b[0m", RX_Bit);
 		RX_Alarm = add_alarm_in_ms(1000 / BAUD_RATE, RX_ReadNextBit, NULL, true);
 	}
 
 	return 0;
 }
 
+/*====================================
+		STDIN HANDLER FUNC
+====================================*/
 
+void stdinCharsAvailable(void *queue) {
+	char key = (char) getchar_timeout_us(0); // Get pending key press, don't wait
+	if (key) {
+		printf("> \x1b[35m%c\x1b[0m\n", key); // Echo to console
+		
+		Packet* stdinPacket = byteToPacket(toByte(key));
+		pushQueue(queue, createQueueNode(stdinPacket)); // Add packet to queue
+	}
+}
 
 
 /*====================================
@@ -201,19 +215,22 @@ int main() {
 	Packet* TEST2 = byteToPacket(toByte('B'));
 	Packet* TEST3 = byteToPacket(toByte('C'));
 
+	/*====================================
+			HANDLE STDIN DATA
+	====================================*/
+
+	stdio_set_chars_available_callback(&stdinCharsAvailable, outboundQueue);
 
 	/*====================================
 				MAIN CLOCK LOOP
 	====================================*/
 	while (true) {
 		// Add things to our outboundQueue so that we are always transmitting
-		if (outboundQueue->length == 0) {
-			pushQueue(outboundQueue, createQueueNode(TEST1));
-			pushQueue(outboundQueue, createQueueNode(TEST2));
-			pushQueue(outboundQueue, createQueueNode(TEST3));
-		}
-
-		// RECEIVER PROCESSING
+		// if (outboundQueue->length == 0) {
+		// 	pushQueue(outboundQueue, createQueueNode(TEST1));
+		// 	pushQueue(outboundQueue, createQueueNode(TEST2));
+		// 	pushQueue(outboundQueue, createQueueNode(TEST3));
+		// }
 
 
 		// TRANSMITTER PROCESSING
@@ -247,10 +264,7 @@ int main() {
 			// printf("%d", TX_PacketBits[0]);
 
 			TX_Alarm = add_alarm_in_ms(1000 / BAUD_RATE, TX_FinishedSendingBit, NULL, true);
-		}
-
-		// STDIO PROCESSING
-		
+		}		
 
 		tight_loop_contents();
 	}
@@ -261,61 +275,61 @@ int main() {
 
 	// Packet* m = toPacket("The quick brown fox jumps over the lazy dog.");
 
-	while (true) {
-		// if (USE_ONBOARD_LED) {
-		// 	LED_ON = !LED_ON;
-		// 	setOnboardLED(LED_ON); // Toggle LED on each input
-		// }
+	// while (true) {
+	// 	// if (USE_ONBOARD_LED) {
+	// 	// 	LED_ON = !LED_ON;
+	// 	// 	setOnboardLED(LED_ON); // Toggle LED on each input
+	// 	// }
 
-		printf("\nTesting Scan: ");
-		char x = 0; // Reset on every iteration
-		while (x != '\n' && x != '\r' && x != 13) {
-			scanf("%c", &x); // Scan char by char
-			printf("%c", x); // Echo the provided character
-			if (x == '\n' || x == '\r') break; // REMOVE THIS LATER, WE WANT TO IMMEDIATELY SEND ALL DATA ANYWAY
-			Packet* m2 = byteToPacket(toByte(x)); // Create a packet for each character (like SSH)
-			m2->header = 0b0000;
-			cachePacket(m2);
-			sendPacket(m2, TX_PIN);
-			PacketQueueNode* n = createQueueNode(m2);
-			pushQueue(outboundQueue, n);
-			// printPacket(m2);
-		}
+	// 	printf("\nTesting Scan: ");
+	// 	char x = 0; // Reset on every iteration
+	// 	while (x != '\n' && x != '\r' && x != 13) {
+	// 		scanf("%c", &x); // Scan char by char
+	// 		printf("%c", x); // Echo the provided character
+	// 		if (x == '\n' || x == '\r') break; // REMOVE THIS LATER, WE WANT TO IMMEDIATELY SEND ALL DATA ANYWAY
+	// 		Packet* m2 = byteToPacket(toByte(x)); // Create a packet for each character (like SSH)
+	// 		m2->header = 0b0000;
+	// 		cachePacket(m2);
+	// 		sendPacket(m2, TX_PIN);
+	// 		PacketQueueNode* n = createQueueNode(m2);
+	// 		pushQueue(outboundQueue, n);
+	// 		// printPacket(m2);
+	// 	}
 
-		printf("\nQUEUE CONTENTS:\n");
-		// TODO manually collect string input to be added to queue
+	// 	printf("\nQUEUE CONTENTS:\n");
+	// 	// TODO manually collect string input to be added to queue
 
-		printPacketQueue(outboundQueue);
-		// PacketQueueNode* n = popQueue(outboundQueue);
-		// sendPacket(n->value, TX_PIN);
+	// 	printPacketQueue(outboundQueue);
+	// 	// PacketQueueNode* n = popQueue(outboundQueue);
+	// 	// sendPacket(n->value, TX_PIN);
 
 
-		// PRINT THE QUEUE HERE!!!
-	}
+	// 	// PRINT THE QUEUE HERE!!!
+	// }
 
-	while (true) {	
-		// sleep_ms(1000);
+	// while (true) {	
+	// 	// sleep_ms(1000);
 
-		// ON ? gpio_put(TX_PIN, 1) : gpio_put(TX_PIN, 0);
-		// ON = !ON;
+	// 	// ON ? gpio_put(TX_PIN, 1) : gpio_put(TX_PIN, 0);
+	// 	// ON = !ON;
 		
-		printf("\n\nHello!\n");
+	// 	printf("\n\nHello!\n");
 
-		// sendPacket(m, TX_PIN);
+	// 	// sendPacket(m, TX_PIN);
 		
-		// printf("Packet[%ld] (%p)\n", sizeof(*m), m);
-		// printf("\tLength: %d\n", m->length);
-		// printf("\tFirst Byte[%ld] (%p) - Value: '%c'\n", sizeof(*(m->firstByte)), m->firstByte, m->firstByte->value);
-		// printf("\tLast Byte[%ld] (%p) - Value: '%c'\n", sizeof(*(m->lastByte)), m->lastByte, m->lastByte->value);
+	// 	// printf("Packet[%ld] (%p)\n", sizeof(*m), m);
+	// 	// printf("\tLength: %d\n", m->length);
+	// 	// printf("\tFirst Byte[%ld] (%p) - Value: '%c'\n", sizeof(*(m->firstByte)), m->firstByte, m->firstByte->value);
+	// 	// printf("\tLast Byte[%ld] (%p) - Value: '%c'\n", sizeof(*(m->lastByte)), m->lastByte, m->lastByte->value);
 
-		// printf("Let's try printByte(m->firstByte).\n");
-		// printByte(m->firstByte);
+	// 	// printf("Let's try printByte(m->firstByte).\n");
+	// 	// printByte(m->firstByte);
 
-		// printf("Let's try printPacket(m).\n");
-		// printPacket(m);
+	// 	// printf("Let's try printPacket(m).\n");
+	// 	// printPacket(m);
 
 
-	}
+	// }
 
 	// freePacket(m);
 
