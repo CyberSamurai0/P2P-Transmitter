@@ -37,10 +37,6 @@ pico_sdk_init()
 
 add_executable(P2P-Transmitter 
     src/main.c 
-    src/networking.c
-    src/networking.h
-    src/uart.c
-    src/uart.h
     src/packet.c
     src/packet.h
     src/packet-queue.c

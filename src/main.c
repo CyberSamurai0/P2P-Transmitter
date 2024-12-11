@@ -5,8 +5,6 @@
  * https://github.com/CyberSamurai0/P2P-Transmitter
  */
 
-#include "networking.h"
-#include "uart.h"
 #include "packet.h"
 #include "packet-queue.h"
 #include <stdlib.h>
