@@ -35,7 +35,7 @@
 #define TX_PIN 0
 #define RX_PIN 1
 
-#define BAUD_RATE 10
+#define BAUD_RATE 20 // NOTE THAT THIS CANNOT BE MORE THAN 1000 AS OUR TIMING USES INTEGER MILLISECOND DELAYS
 
 #define PACKET_CACHE_SIZE 8
 
@@ -263,7 +263,7 @@ int main() {
 			// printf("Transmit: %d%d%d%d%d%d%d%d%d%d%d\n", TX_PacketBits[0], TX_PacketBits[1], TX_PacketBits[2], TX_PacketBits[3], TX_PacketBits[4], TX_PacketBits[5], TX_PacketBits[6], TX_PacketBits[7], TX_PacketBits[8], TX_PacketBits[9], TX_PacketBits[10]);
 		
 			gpio_put(TX_PIN, TX_PacketBits[0]); // Send the Start Bit (we know it will always be zero but for consistency's sake)
-			// printf("%d", TX_PacketBits[0]);
+			printf("\x1b[31m%d\x1b[0m", TX_PacketBits[0]);
 
 			TX_Alarm = add_alarm_in_ms(1000 / BAUD_RATE, TX_FinishedSendingBit, NULL, true);
 		}		
