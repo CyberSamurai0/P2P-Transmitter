@@ -1,6 +1,6 @@
 # Point to Point Laser Transmission built using C
 ## Abstract
-This project implements a full-duplex, wireless, point-to-point communication channel using laser diodes, programmed entirely in C.
+This project implements a full-duplex, wireless, point-to-point communication channel across free space using laser diodes, programmed entirely in C.
 
 Each endpoint utilizes a Raspberry Pi Pico RP2040 microcontroller to manage data transmission and reception via a from-scratch implementation of UART. All required hardware components are listed [here](https://github.com/CyberSamurai0/P2P-Transmitter/wiki/Hardware-Setup).
 
