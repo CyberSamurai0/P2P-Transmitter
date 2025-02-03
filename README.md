@@ -8,13 +8,13 @@ Each endpoint utilizes a Raspberry Pi Pico RP2040 microcontroller to manage data
 Documentation on how to implement this project is available on the repository's **[Wiki](https://github.com/CyberSamurai0/P2P-Transmitter/wiki)**.
 
 ## Credits
-#### [John A. Baker](https://github.com/johnb4k3r)
+#### John A. Baker - [Profile](https://github.com/johnb4k3r)
 Undergraduate at Purdue University majoring in Cybersecurity
-#### [William P. Buinicki](https://github.com/wbuinick)
+#### William P. Buinicki - [Profile](https://github.com/wbuinick)
 Undergraduate at Purdue University double-majoring in Cybersecurity and Network Engineering Technology, minoring in Forensics
-#### [Brandon A. D'Souza](https://github.com/BrandonDSouza)
+#### Brandon A. D'Souza - [Profile](https://github.com/BrandonDSouza)
 Undergraduate at Purdue University double-majoring in Cybersecurity and Network Engineering Technology, minoring in Design & Innovation
-#### [Pierce P. McGuckin](https://github.com/PierceMcGuckin)
+#### Pierce P. McGuckin - [Profile](https://github.com/PierceMcGuckin)
 Undergraduate at Purdue University double-majoring in Cybersecurity and Network Engineering Technology, minoring in Organizational Leadership
-#### [Colin A. Saumure](https://github.com/CyberSamurai0)
+#### Colin A. Saumure - [Profile](https://github.com/CyberSamurai0)
 Undergraduate at Purdue University double-majoring in Cybersecurity and Network Engineering Technology, minoring in Electrical Engineering Technology
